@@ -23,7 +23,7 @@ public class Cash {
 
     @ManyToOne
     @JoinColumn(name="brand_id", referencedColumnName="id")
-    private Brand brand;
+    private Branch branch;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

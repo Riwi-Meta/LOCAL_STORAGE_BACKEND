@@ -1,6 +1,5 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
-import java.math.BigInteger;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +23,7 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private BigInteger id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
