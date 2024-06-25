@@ -3,7 +3,15 @@ package com.riwi.localstorage.riwi_local_storage.api.dto.request.create;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SupplierRequest {
     @NotBlank(message = "The name is required")
     @Size(max = 100,  message = "The name must be less than 100 characters")
