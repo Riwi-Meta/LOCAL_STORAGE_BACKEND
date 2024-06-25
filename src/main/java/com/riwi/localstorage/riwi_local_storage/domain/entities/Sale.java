@@ -46,7 +46,7 @@ public class Sale {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    // Type must be change to Discount in the future
+    // Type must be change to Discount to "Sale" in the future
     // @ManyToOne
     // @JoinColumn(name = "discount_id", nullable = true)
     private Double discount;
