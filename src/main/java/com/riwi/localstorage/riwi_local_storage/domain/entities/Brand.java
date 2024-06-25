@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "brands")
-public class Brand {
+@Table(name = "branches")
+public class Branch {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
