@@ -1,18 +1,18 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services;
 
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.SupplierRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.SupplierResponse;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.CreateService;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadAllService;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadService;
 
-public interface ISupplierService {   
+public interface ISupplierService extends 
+CreateService<SupplierRequest, SupplierResponse>,
+ReadService<SupplierResponse, String>,
+ReadAllService<SupplierResponse> {
     
-    SupplierResponse create(SupplierRequest request);
-
-    Page<SupplierResponse> getAll(Pageable pageable);
-
-    Optional<SupplierResponse> getById(Long id);
+   void sendEmail(String supplierId);
+ 
 }
