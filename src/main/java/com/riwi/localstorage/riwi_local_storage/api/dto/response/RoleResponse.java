@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleResponse {
+    private String id;
     private String name;
     private String description;
     private StatusType status;
