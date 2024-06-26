@@ -2,6 +2,6 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 
 import java.util.Optional;
 
-public interface ReadService<Request, Response, Id> {
+public interface ReadService<Response, Id> {
     Optional<Response> getById(Id id);
 }

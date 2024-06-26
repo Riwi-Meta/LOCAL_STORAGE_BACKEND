@@ -3,6 +3,6 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface ReadAllService<Request, Response> {
+public interface ReadAllService<Response> {
     Page<Response> getAll(Pageable pageable); 
 }
