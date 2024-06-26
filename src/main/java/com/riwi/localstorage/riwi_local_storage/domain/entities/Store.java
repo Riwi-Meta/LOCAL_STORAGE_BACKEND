@@ -44,11 +44,6 @@ public class Store {
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Branch> branches;
 
-        //Type must be changed to "User" in the future
-        //@ManyToOne
-        //@JoinColumn(name = "owner_id", referencedColumnName = "id")
-        //private String user;
-
     //Relation with entity user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)

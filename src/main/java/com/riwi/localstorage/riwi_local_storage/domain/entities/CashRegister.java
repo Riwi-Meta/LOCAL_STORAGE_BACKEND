@@ -13,8 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +27,11 @@ public class CashRegister {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    //Relation with entity cash
+    @OneToOne
+    @JoinColumn(name = "cash_id", referencedColumnName = "id")
+    private Cash cash;
+    
     //Relation with Cash
     @ManyToOne
     @JoinColumn(name="cash_id", referencedColumnName="id")

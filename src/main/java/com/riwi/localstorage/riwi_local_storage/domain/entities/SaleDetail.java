@@ -35,10 +35,10 @@ public class SaleDetail {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    // Type must be change to Discount to "Sale" in the future
-    // @ManyToOne
-    // @JoinColumn(name = "sale_id", nullable = false)
-    private Double sale;
+    //Relation with entity sale
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sale_id", referencedColumnName = "id", nullable = false)
+    private Sale sale;
 
     // Inventory - Sale_Detail: One-to-Many (1:M) A inventory can have many Sale_Details.
     @ManyToOne(fetch = FetchType.LAZY)
