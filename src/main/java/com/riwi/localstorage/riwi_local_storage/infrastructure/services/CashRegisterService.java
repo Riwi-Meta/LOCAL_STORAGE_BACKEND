@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class CashRegisterService implements ICashRegisterService {
-  
+
   @Autowired
   private CashRegisterRepository cashRegisterRepository;
 
