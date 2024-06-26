@@ -1,5 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services;
 
+import org.springframework.stereotype.Service;
+
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.RoleRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.RoleRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RoleResponse;
@@ -9,11 +11,12 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.UpdateService;
 
+@Service
 public interface IRoleService extends 
     CreateService<RoleRequest,RoleResponse>,
-    DeleteService<Long>,                                //this is disable status
+    DeleteService<String>,                                //this is disable status
     ReadAllService<RoleResponse>,
-    ReadService<RoleResponse,Long>,
-    UpdateService<RoleRequestUpdate,RoleResponse,Long> {
+    ReadService<RoleResponse,String>,
+    UpdateService<RoleRequestUpdate,RoleResponse, String> {
     
 }
