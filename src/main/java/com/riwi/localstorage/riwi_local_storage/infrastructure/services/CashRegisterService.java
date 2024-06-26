@@ -1,15 +1,14 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.CashRegisterRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.CashRegisterResponse;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.CashRegister;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.CashRegisterRepository;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.CashRegisterRequest;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.CashRegisterResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.ICashRegisterService;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class CashRegisterService implements ICashRegisterService {
   }
 
   @Override
-  public CashRegisterResponse update(UUID id, CashRegisterRequest request) {
+  public CashRegisterResponse update(String id, CashRegisterRequest request) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'update'");
   }
@@ -50,6 +49,11 @@ public class CashRegisterService implements ICashRegisterService {
   public Page<CashRegisterResponse> getAll(int page, int size) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+  }
+
+  private CashRegister find(String id) {
+    // this method is incomplete, missing idNotFoud
+    return this.cashRegisterRepository.findById(id).orElseThrow();
   }
   
 }
