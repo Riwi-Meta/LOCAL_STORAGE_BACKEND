@@ -2,6 +2,6 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 
 import java.util.UUID;
 
-public interface ICashRegisterService extends CrudAbstractSevice<CashRegisterRequest, CashRegisterResponse, UUID> {
+public interface ICashRegisterService extends CrudAbstractSevice<CashRegisterRequest, CashRegisterResponse, String> {
   
 }
