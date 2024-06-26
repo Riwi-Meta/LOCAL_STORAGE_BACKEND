@@ -28,11 +28,11 @@ public class SupplierOrder {
     @Column(name = "note", nullable = true)
     private String note;
 
-    @Column(name = "inventory_id", nullable = false)
-    private String inventoryId;
+    // @Column(name = "inventory_id", nullable = false)
+    // private String inventoryId;
 
-    @Column(name = "supplier_id", nullable = false)
-    private String supplierId;
+    // @Column(name = "supplier_id", nullable = false)
+    // private String supplierId;
 
     @Column(name = "total", nullable = false)
     private Double total;

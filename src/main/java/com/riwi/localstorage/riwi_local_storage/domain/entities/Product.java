@@ -45,8 +45,8 @@ public class Product {
     @Column(name = "buying_price", nullable = true)
     private Double buyingPrice;
 
-    @Column(name = "category_id", nullable = true)
-    private String categoryId;
+    // @Column(name = "category_id", nullable = true)
+    // private String categoryId;
     
     // Category - Product: One-to-Many (1:M) A Category can have many Products.
     @ManyToOne(fetch = FetchType.LAZY)
