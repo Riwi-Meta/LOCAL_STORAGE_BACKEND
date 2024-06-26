@@ -1,11 +1,23 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.Date;
+import java.util.List;
 
-import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -45,12 +57,33 @@ public class Sale {
     // Type must be change to Discount to "Sale" in the future
     // @ManyToOne
     // @JoinColumn(name = "discount_id", nullable = true)
-    private Double discount;
+    //private Double discount;
 
     //Relation with entity user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    // Relation with entity discount
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = false)
+    private Discount discount;
 
+    //Relation with entity saleDetail
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<SaleDetail> salesDetails;
+
+    // Relation with entity branch
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = false)
+    private Branch branch;
+
+    //Relation with entity cash
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cash_store_id", referencedColumnName = "id", nullable = false)
+    private Cash cash ;
+
+    
 }
