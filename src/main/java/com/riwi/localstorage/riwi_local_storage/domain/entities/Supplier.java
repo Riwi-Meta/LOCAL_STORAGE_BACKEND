@@ -38,4 +38,7 @@ public class Supplier {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "enable", nullable = false)
+    private Boolean enable;
 }
