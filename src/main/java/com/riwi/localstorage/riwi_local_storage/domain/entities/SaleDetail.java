@@ -41,7 +41,7 @@ public class SaleDetail {
     private Sale sale;
 
     // Inventory - Sale_Detail: One-to-Many (1:M) A inventory can have many Sale_Details.
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "inventory_id", referencedColumnName = "id")
-    //private Inventory inventory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
+    private Inventory inventory;
 }

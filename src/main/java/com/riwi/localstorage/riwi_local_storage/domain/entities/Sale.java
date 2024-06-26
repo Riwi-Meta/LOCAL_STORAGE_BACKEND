@@ -30,14 +30,14 @@ public class Sale {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "employee_id", nullable = false)
-    private String employeeId;
+    //@Column(name = "employee_id", nullable = false)
+    //private String employeeId;
 
-    @Column(name = "branch_id", nullable = false)
-    private String branchId;
+    //@Column(name = "branch_id", nullable = false)
+    //private String branchId;
 
-    @Column(name = "cash_store_id", nullable = false)
-    private String cashStoreId;
+    //@Column(name = "cash_store_id", nullable = false)
+    //private String cashStoreId;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -64,7 +64,7 @@ public class Sale {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    // Relation with entity discount
+    //Relation with entity discount
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = false)
     private Discount discount;
@@ -75,14 +75,14 @@ public class Sale {
     @EqualsAndHashCode.Exclude
     private List<SaleDetail> salesDetails;
 
-    // Relation with entity branch
+    //Relation with entity branch
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = false)
     private Branch branch;
 
     //Relation with entity cash
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cash_store_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "cash_id", referencedColumnName = "id", nullable = false)
     private Cash cash ;
 
     

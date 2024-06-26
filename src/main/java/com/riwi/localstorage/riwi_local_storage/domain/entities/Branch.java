@@ -55,7 +55,6 @@ public class Branch {
     // @JoinColumn(name = "store_id", referencedColumnName = "id",nullable = false)
     private String store;
 
-    //Relation with entity inventory
     // Branch - Inventory: One-to-Many (1:M) A branch can have many inventories.
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

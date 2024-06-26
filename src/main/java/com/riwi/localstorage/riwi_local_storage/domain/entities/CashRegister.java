@@ -20,15 +20,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "cash_registers")
 public class CashRegister {
-
-    @OneToOne
-    @JoinColumn(name = "cash_id", referencedColumnName = "id")
-    private Cash cash;
-
-    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
+
+    //Relation with entity cash
+    @OneToOne
+    @JoinColumn(name = "cash_id", referencedColumnName = "id")
+    private Cash cash;
     
 }

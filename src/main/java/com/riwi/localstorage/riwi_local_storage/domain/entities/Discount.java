@@ -51,10 +51,6 @@ public class Discount {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Sale> sales;
-
-
-
-
 }
 
 enum DiscountType {
