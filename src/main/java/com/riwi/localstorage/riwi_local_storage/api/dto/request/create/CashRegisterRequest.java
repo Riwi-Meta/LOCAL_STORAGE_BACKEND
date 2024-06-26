@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +18,7 @@ import lombok.NoArgsConstructor;
 
 public class CashRegisterRequest {
 
-    @NotNull(message = "ID cannot be null")
-    @NotBlank(message = "ID cannot be blank")
-    private String id;
-
+    
     @NotNull(message = "Date cannot be null")
     private LocalDate date;
 
