@@ -11,7 +11,7 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.CashRegister;
 @Mapper(componentModel = "spring")
 public interface CashRegisterMapper {
     
-    CashRegisterResponse cashRegisterToCashRegisterResponsesponse(CashRegister cashRegister);
+    CashRegisterResponse cashRegisterToCashRegisterResponse(CashRegister cashRegister);
 
 
     @Mappings({
