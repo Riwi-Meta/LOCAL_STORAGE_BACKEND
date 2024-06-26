@@ -30,15 +30,6 @@ public class Sale {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    //@Column(name = "employee_id", nullable = false)
-    //private String employeeId;
-
-    //@Column(name = "branch_id", nullable = false)
-    //private String branchId;
-
-    //@Column(name = "cash_store_id", nullable = false)
-    //private String cashStoreId;
-
     @Column(name = "date", nullable = false)
     private Date date;
 
@@ -53,11 +44,6 @@ public class Sale {
 
     @Column(name = "total", nullable = false)
     private Double total;
-
-    // Type must be change to Discount to "Sale" in the future
-    // @ManyToOne
-    // @JoinColumn(name = "discount_id", nullable = true)
-    //private Double discount;
 
     //Relation with entity user
     @ManyToOne(fetch = FetchType.LAZY)
@@ -83,7 +69,7 @@ public class Sale {
     //Relation with entity cash
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cash_id", referencedColumnName = "id", nullable = false)
-    private Cash cash ;
+    private Cash cash;
 
     
 }

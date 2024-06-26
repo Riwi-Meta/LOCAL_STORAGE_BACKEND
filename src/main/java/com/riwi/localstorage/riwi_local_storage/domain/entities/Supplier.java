@@ -49,7 +49,6 @@ public class Supplier {
     // Supplier - Supplier_Order: One-to-Many (1:M) A supplier can have many supplier orders.
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SupplierOrder> supplierOrders;
-
 }

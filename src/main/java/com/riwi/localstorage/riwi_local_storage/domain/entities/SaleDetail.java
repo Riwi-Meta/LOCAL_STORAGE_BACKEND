@@ -23,9 +23,6 @@ public class SaleDetail {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    // @Column(name = "inventory_id", nullable = false)
-    // private String inventoryId;
-
     @Column(name = "quantity", nullable = false)
     private Double quantity;
 

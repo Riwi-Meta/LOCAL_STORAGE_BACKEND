@@ -11,9 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -27,12 +24,6 @@ public class SupplierOrder {
 
     @Column(name = "note", nullable = true)
     private String note;
-
-    // @Column(name = "inventory_id", nullable = false)
-    // private String inventoryId;
-
-    // @Column(name = "supplier_id", nullable = false)
-    // private String supplierId;
 
     @Column(name = "total", nullable = false)
     private Double total;

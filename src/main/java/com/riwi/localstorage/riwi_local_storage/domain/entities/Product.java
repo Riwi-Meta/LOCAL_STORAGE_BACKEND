@@ -1,6 +1,5 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,8 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 @Data
 @NoArgsConstructor
@@ -44,9 +41,6 @@ public class Product {
 
     @Column(name = "buying_price", nullable = true)
     private Double buyingPrice;
-
-    // @Column(name = "category_id", nullable = true)
-    // private String categoryId;
     
     // Category - Product: One-to-Many (1:M) A Category can have many Products.
     @ManyToOne(fetch = FetchType.LAZY)

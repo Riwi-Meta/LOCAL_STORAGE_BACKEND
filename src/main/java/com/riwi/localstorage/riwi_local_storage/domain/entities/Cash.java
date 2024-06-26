@@ -18,11 +18,8 @@ import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

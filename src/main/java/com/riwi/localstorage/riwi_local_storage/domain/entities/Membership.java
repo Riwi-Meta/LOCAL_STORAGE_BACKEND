@@ -41,16 +41,6 @@ public class Membership {
     @Lob
     private String description;
 
-    // @Column(name = "user_id", nullable = false)
-    // @OneToMany(
-    // mappedBy = "memberships",
-    // fetch = FetchType.LAZY,
-    // cascade = CascadeType.ALL)
-    // Relation with entity subscription
-    // NOTE: *** Check if the user entity has a direct relationship with memberships. ***
-    @Column(name = "user_id")
-    private String user;
-
     //Relation with entity suscription
     @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
