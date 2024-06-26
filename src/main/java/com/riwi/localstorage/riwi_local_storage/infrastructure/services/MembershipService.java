@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class MembershipService  implements  IMembershipService {
+public class MembershipService implements IMembershipService {
 
     @Autowired
     private MembershipMapper membershipMapper;
@@ -27,8 +27,8 @@ public class MembershipService  implements  IMembershipService {
 
     @Override
     public Page<MembershipResponse> getAll(int page, int size) {
-        if(page < 0)
-        page = 0;
+        if (page < 0)
+            page = 0;
 
         PageRequest pagination = PageRequest.of(page, size);
 
@@ -39,12 +39,13 @@ public class MembershipService  implements  IMembershipService {
     public void updateMembershipStatus(String id, boolean enabled) {
         Membership membership = findMembership(id);
 
-
+        membership.setEnabled(enabled);
+        this.membershipRepository.save(membership);
     }
 
-    private Membership findMembership(String id){
+    private Membership findMembership(String id) {
 
-        return this.membershipRepository.findById(id).orElseThrow(()-> new MembershipNotFoundException(id));
+        return this.membershipRepository.findById(id).orElseThrow(() -> new MembershipNotFoundException(id));
     }
-    
+
 }
