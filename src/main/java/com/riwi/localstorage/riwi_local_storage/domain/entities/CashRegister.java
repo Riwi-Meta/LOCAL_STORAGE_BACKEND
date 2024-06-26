@@ -22,23 +22,6 @@ public class CashRegister {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(nullable = false, length = 100)
-    private Date date;
-
-    @Column(nullable = false, length = 100)
-    private Double total_amount;
-
-    @Column(nullable = false, length = 100)
-    private String note;
-
-    @Column(nullable = false, length = 100)
-
-    private Double finish_amount;
-
-    @Column(nullable = false, length = 100)
-
-    private Double init_amount;
-
     @ManyToOne
     @JoinColumn(name="cash_id", referencedColumnName="id")
     private Cash cash;

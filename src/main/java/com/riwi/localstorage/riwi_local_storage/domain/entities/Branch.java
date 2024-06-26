@@ -33,9 +33,6 @@ public class Branch {
     @Column(length = 50)
     private String country;
 
-    @Column(length = 100)
-    private String location;
-
     @Column(length = 50)
     private String phone;
 

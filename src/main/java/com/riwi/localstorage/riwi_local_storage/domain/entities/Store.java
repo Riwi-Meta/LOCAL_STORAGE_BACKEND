@@ -1,7 +1,4 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
-
-
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,18 +20,15 @@ public class Store {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private  Integer owner_id;
-
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Branch> branches;
 
         //Type must be changed to "User" in the future
-        /*@ManyToOne
-         @JoinColumn(name = "owner_id", referencedColumnName = "id")
-        private String user;*/
+        //@ManyToOne
+        //@JoinColumn(name = "owner_id", referencedColumnName = "id")
+        private String user;
 
 
 }
