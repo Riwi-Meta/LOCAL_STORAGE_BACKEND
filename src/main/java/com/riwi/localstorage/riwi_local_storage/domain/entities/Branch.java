@@ -1,15 +1,22 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -46,5 +53,11 @@ public class Branch {
     // @ManyToOne
     // @JoinColumn(name = "store_id", referencedColumnName = "id",nullable = false)
     private String store;
+    
+    // Branch - Inventory: One-to-Many (1:M) A branch can have many inventories.
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Inventory> inventory;
     
 }

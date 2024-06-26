@@ -3,9 +3,12 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,5 +48,17 @@ public class Product {
     @Column(name = "category_id", nullable = true)
     private String categoryId;
     
+    // Category - Product: One-to-Many (1:M) A Category can have many Products.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    // Product - Inventory: Many-to-One (M:1) Many Product is associated with one Inventory.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
+    private Inventory inventory;
+
+    // Product - Update_History: One-to-Many (1:M) A product can have many update histories.
+    // ...
 }
 
