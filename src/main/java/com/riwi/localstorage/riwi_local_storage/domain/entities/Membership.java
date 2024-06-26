@@ -8,14 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "memberships")
 public class Membership {
@@ -30,7 +30,6 @@ public class Membership {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    
     @Column(name = "description", nullable = true)
     @Lob
     private String description;
@@ -41,7 +40,8 @@ public class Membership {
     // fetch = FetchType.LAZY,
     // cascade = CascadeType.ALL)
     // Relation with entity subscription
-    // NOTE: *** Check if the user entity has a direct relationship with memberships. ***
+    // NOTE: *** Check if the user entity has a direct relationship with
+    // memberships. ***
     @Column(name = "user_id")
-    private String user; 
+    private String user;
 }
