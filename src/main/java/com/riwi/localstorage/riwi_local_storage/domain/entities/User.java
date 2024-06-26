@@ -2,20 +2,14 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-// import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-// import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.ManyToOne;
-// import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -44,15 +38,24 @@ public class User {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    // @ManyToOne
-    // @JoinColumn(name = "role_id", referencedColumnName = "id",nullable = false)
-    // Relation with entity role
-    private String role;
+    //Relation with entity role
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id", referencedColumnName = "id", nullable = false)
+    private Role role;
 
-    // @OneToMany(
-    // mappedBy = "user",
-    // fetch = FetchType.LAZY,
-    // cascade = CascadeType.ALL)
-    // Relation with entity subscription
-    private List<String> subscriptions;
+    //Relation with entity subscription
+    @OneToOne(mappedBy = "user")
+    private Suscription suscription;
+
+    //Relation with entity store
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Store> stores;
+
+    //Relation with entity sale
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Sale> sales;
 }

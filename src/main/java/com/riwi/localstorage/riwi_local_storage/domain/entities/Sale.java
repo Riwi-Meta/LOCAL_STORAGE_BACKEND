@@ -2,12 +2,8 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -50,4 +46,11 @@ public class Sale {
     // @ManyToOne
     // @JoinColumn(name = "discount_id", nullable = true)
     private Double discount;
+
+    //Relation with entity user
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
+
 }
