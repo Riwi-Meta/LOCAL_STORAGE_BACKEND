@@ -1,5 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,10 +27,24 @@ public class CashRegister {
     @JoinColumn(name = "cash_id", referencedColumnName = "id")
     private Cash cash;
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
-    
+
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+    @Column(name = "total_amount", nullable = false)
+    private Double totalAmount;
+
+    @Column(name = "note", nullable = true)
+    private String note;
+
+    @Column(name = "finish_amount", nullable = false)
+    private Double finishAmount;
+
+    @Column(name = "init_amount", nullable = false)
+    private Double initAmount;
+
 }
