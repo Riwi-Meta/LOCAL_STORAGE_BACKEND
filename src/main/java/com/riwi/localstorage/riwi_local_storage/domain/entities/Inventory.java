@@ -1,17 +1,25 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -43,4 +51,28 @@ public class Inventory {
 
     @Column(name = "expiration_date", nullable = false)
     private Date expirationDate;
+
+    // Inventory - Product: One-to-Many (1:M)  A Inventory can have many Products.
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Product> product;
+
+    // Branch - Inventory: One-to-Many (1:M) A branch can have many inventories.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
+    private Branch branch;
+
+    // Inventory - Sale_Detail: One-to-Many (1:M) A inventory can have many Sale_Details.
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<SaleDetail> saleDetails;
+
+    // Inventory - Supplier_Order: One-to-Many (1:M) An inventory can be part of many supplier orders.
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<SupplierOrder> supplierOrders;
+
 } 
