@@ -1,16 +1,9 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -43,5 +36,11 @@ public class Membership {
     // Relation with entity subscription
     // NOTE: *** Check if the user entity has a direct relationship with memberships. ***
     @Column(name = "user_id")
-    private String user; 
+    private String user;
+
+    //Relation with entity suscription
+    @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Suscription> suscriptions;
 }
