@@ -1,4 +1,4 @@
-package com.riwi.localstorage.riwi_local_storage.api.dto.response;
+package com.riwi.localstorage.riwi_local_storage.api.dto.request.update;
 
 import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
 
@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleResponse {
-    private String id;
-    private String name;
-    private String description;
+public class RoleRequestUpdateStatus {
     private StatusType status;
 }
