@@ -5,10 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.MembershipRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IMembershipService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.MembershipMapper;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.MembershipNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -31,5 +34,17 @@ public class MembershipService  implements  IMembershipService {
 
         return this.membershipRepository.findAll(pagination).map(membership -> membershipMapper.toResponse(membership));
     }
-  
+
+    @Override
+    public void updateMembershipStatus(String id, boolean enabled) {
+        Membership membership = findMembership(id);
+
+
+    }
+
+    private Membership findMembership(String id){
+
+        return this.membershipRepository.findById(id).orElseThrow(()-> new MembershipNotFoundException(id));
+    }
+    
 }
