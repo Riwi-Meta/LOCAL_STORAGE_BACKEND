@@ -2,6 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,7 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.response.CashRegisterRes
 import com.riwi.localstorage.riwi_local_storage.domain.entities.CashRegister;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.CashRegisterRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.ICashRegisterService;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.CashRegisterMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -21,39 +23,52 @@ public class CashRegisterService implements ICashRegisterService {
   @Autowired
   private CashRegisterRepository cashRegisterRepository;
 
+  @Autowired
+  private CashRegisterMapper cashRegisterMapper;
+
   @Override
   public CashRegisterResponse getById(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getById'");
+
+    return cashRegisterMapper.cashRegisterToCashRegisterResponsesponse(this.find(id));
   }
 
   @Override
   public CashRegisterResponse create(CashRegisterRequest request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    CashRegister cashRegister = cashRegisterMapper.cashRegisterRequestToCashRegister(request);
+
+    return cashRegisterMapper.cashRegisterToCashRegisterResponsesponse(this.cashRegisterRepository.save(cashRegister));
   }
 
   @Override
   public CashRegisterResponse update(String id, CashRegisterRequest request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+    CashRegister cashRegister = this.find(id);
+    cashRegister = cashRegisterMapper.cashRegisterRequestToCashRegister(request);
+    cashRegister.setId(id);
+    return cashRegisterMapper.cashRegisterToCashRegisterResponsesponse(this.cashRegisterRepository.save(cashRegister));
   }
 
   @Override
   public void delete(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    this.cashRegisterRepository.delete(this.find(id));
   }
 
   @Override
   public Page<CashRegisterResponse> getAll(int page, int size) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+    if (page < 0)
+      page = 0;
+
+    PageRequest pagination = PageRequest.of(page, size);
+
+    this.cashRegisterRepository.findAll(pagination);
+
+    return this.cashRegisterRepository.findAll(pagination)
+        .map(cashRegisterMapper::cashRegisterToCashRegisterResponsesponse);
+
   }
 
   private CashRegister find(String id) {
     // this method is incomplete, missing idNotFoud
     return this.cashRegisterRepository.findById(id).orElseThrow();
   }
-  
+
 }
