@@ -31,27 +31,19 @@ public class CashRegisterService implements ICashRegisterService {
   @Override
   public CashRegisterResponse create(CashRegisterRequest request) {
     CashRegister cashRegister = cashRegisterMapper.cashRegisterRequestToCashRegister(request);
-    return cashRegisterMapper.cashRegisterToCashRegisterResponsesponse(this.cashRegisterRepository.save(cashRegister));
-  }
 
-  @Override
-  public void delete(String id) {
-    this.cashRegisterRepository.delete(this.find(id)
-        .orElseThrow(() -> new IllegalArgumentException("CashRegister not found with id: " + id)));
+    return cashRegisterMapper.cashRegisterToCashRegisterResponse(this.cashRegisterRepository.save(cashRegister));
   }
 
   @Override
   public Page<CashRegisterResponse> getAll(Pageable pageable) {
-    this.cashRegisterRepository.findAll(pageable);
-    return this.cashRegisterRepository.findAll(
-        pageable)
-        .map(cashRegisterMapper::cashRegisterToCashRegisterResponsesponse);
-  }
+    return cashRegisterRepository.findAll(pageable).map(cashRegisterMapper::cashRegisterToCashRegisterResponse);
+}
 
   @Override
   public Optional<CashRegisterResponse> getById(String id) {
     Optional<CashRegister> cashRegisterOptional = cashRegisterRepository.findById(id);
-    return cashRegisterOptional.map(cashRegisterMapper::cashRegisterToCashRegisterResponsesponse);
+    return cashRegisterOptional.map(cashRegisterMapper::cashRegisterToCashRegisterResponse);
   }
 
   @Override
@@ -61,8 +53,8 @@ public class CashRegisterService implements ICashRegisterService {
 
     cashRegister = cashRegisterMapper.cashRegisterRequestToCashRegister(request);
     cashRegister.setId(id);
-
-    return cashRegisterMapper.cashRegisterToCashRegisterResponsesponse(this.cashRegisterRepository.save(cashRegister));
+    CashRegister updatedCashRegister = cashRegisterRepository.save(cashRegister);
+    return cashRegisterMapper.cashRegisterToCashRegisterResponse(updatedCashRegister);
   }
 
   private Optional<CashRegister> find(String id) {
