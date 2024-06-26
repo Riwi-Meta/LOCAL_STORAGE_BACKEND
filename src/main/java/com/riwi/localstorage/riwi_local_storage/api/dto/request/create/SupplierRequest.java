@@ -31,4 +31,5 @@ public class SupplierRequest {
 
     @Email(message = "The email must be a valid email")
     private String email;
+
 }
