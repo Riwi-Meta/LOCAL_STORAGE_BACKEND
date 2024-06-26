@@ -49,5 +49,4 @@ public class Membership {
     // memberships. ***
     @Column(name = "user_id")
     private String user;
-    private String user;
 }
