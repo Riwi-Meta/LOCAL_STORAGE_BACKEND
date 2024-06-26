@@ -1,5 +1,9 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
+
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
@@ -9,15 +13,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.CascadeType;
+
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -47,5 +49,9 @@ public class Store {
         //@JoinColumn(name = "owner_id", referencedColumnName = "id")
         //private String user;
 
-
+    //Relation with entity user
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+ 
 }
