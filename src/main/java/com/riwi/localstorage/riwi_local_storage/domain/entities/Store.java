@@ -20,6 +20,8 @@ public class Store {
     @Column(nullable = false)
     private String name;
 
+    //Relation with Branch
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
@@ -28,7 +30,7 @@ public class Store {
         //Type must be changed to "User" in the future
         //@ManyToOne
         //@JoinColumn(name = "owner_id", referencedColumnName = "id")
-        private String user;
+        //private String user;
 
 
 }

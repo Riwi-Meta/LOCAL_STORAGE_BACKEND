@@ -20,13 +20,13 @@ public class Cash {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-
+    //Relation with CashRegister
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "cash", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<CashRegister> cashRegister;
 
-
+    //Relation with Branch
     @ManyToOne
     @JoinColumn(name="branch_id", referencedColumnName="id")
     private Branch branch;

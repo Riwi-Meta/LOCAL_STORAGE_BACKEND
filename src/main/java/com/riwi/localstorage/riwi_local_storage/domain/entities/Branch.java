@@ -37,12 +37,13 @@ public class Branch {
     private String phone;
 
 
-
+    //Relation with Cash
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Cash> cash;
 
+    //Relation with Store
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "id",nullable = false)
     private Store store;

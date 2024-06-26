@@ -22,6 +22,7 @@ public class CashRegister {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    //Relation with Cash
     @ManyToOne
     @JoinColumn(name="cash_id", referencedColumnName="id")
     private Cash cash;
