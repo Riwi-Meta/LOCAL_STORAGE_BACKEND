@@ -1,17 +1,9 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,12 +13,21 @@ import lombok.NoArgsConstructor;
 @Table(name = "cash_machines")
 public class Cash {
 
-    @ManyToOne
-    @JoinColumn(name="brand_id", referencedColumnName="id")
-    private Branch branch;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
+
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "cash", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<CashRegister> cashRegister;
+
+
+    @ManyToOne
+    @JoinColumn(name="branch_id", referencedColumnName="id")
+    private Branch branch;
 }
