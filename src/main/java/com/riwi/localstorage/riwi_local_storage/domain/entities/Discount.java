@@ -47,9 +47,9 @@ public class Discount {
     private String code;
 
     //Relation with entity sale
-    @OneToMany(mappedBy = "discount", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "discount", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
 }
 

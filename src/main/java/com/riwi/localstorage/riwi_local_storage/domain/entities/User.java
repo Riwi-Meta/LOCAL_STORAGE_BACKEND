@@ -58,14 +58,14 @@ public class User {
     private Suscription suscription;
 
     //Relation with entity store
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Store> stores;
 
     //Relation with entity sale
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
 }

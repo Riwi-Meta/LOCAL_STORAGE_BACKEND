@@ -34,9 +34,9 @@ public class Cash {
     private String id;
 
     //Relation with entity sale
-    @OneToMany(mappedBy = "cash", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "cash", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
   
     //Relation with CashRegister

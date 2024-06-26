@@ -70,9 +70,9 @@ public class Branch {
     private List<Inventory> inventory;
     
     // Relation with entity sale
-    @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
 
 }
