@@ -35,7 +35,7 @@ public class SuplierService implements ISupplierService{
     @Override
     public SupplierResponseRelations create(SupplierRequest request) {
         Supplier supplier = supplierMapper.toSupplier(request);
-        supplier.setEnable(true);
+        supplier.setIsEnable(true);
         return supplierMapper.toSupplierResponse(supplierRepository.save(supplier));
     }
 
@@ -63,7 +63,7 @@ public class SuplierService implements ISupplierService{
     public void delete(String id) {
         Supplier supplier = supplierRepository.findById(id)
         .orElseThrow(()-> new IdNotFoundException("SUPPLIER", id));
-        supplier.setEnable(false);
+        supplier.setIsEnable(false);
         supplierRepository.save(supplier);
     }
 

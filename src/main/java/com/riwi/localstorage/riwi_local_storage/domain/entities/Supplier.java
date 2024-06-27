@@ -41,7 +41,7 @@ public class Supplier {
 
 
     @Column(name = "enable", nullable = false)
-    private Boolean enable;
+    private Boolean isEnable;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

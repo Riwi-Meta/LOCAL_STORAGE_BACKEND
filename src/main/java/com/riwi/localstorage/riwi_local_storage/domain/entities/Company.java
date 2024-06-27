@@ -41,8 +41,9 @@ public class Company {
 
 
     @Column(name = "enable", nullable = false)
-    private Boolean enable;
+    private Boolean isEnable;
 
     @OneToMany(mappedBy = "companyId", orphanRemoval = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Supplier> suppliers = new ArrayList<>();
 }
+ 
