@@ -3,13 +3,14 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "cash_registers")
 public class CashRegister {
-
-    @OneToOne
-    @JoinColumn(name = "cash_id", referencedColumnName = "id")
-    private Cash cash;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
@@ -47,4 +44,7 @@ public class CashRegister {
     @Column(name = "init_amount", nullable = false)
     private Double initAmount;
 
+    @ManyToOne
+    @JoinColumn(name="cash_id", referencedColumnName="id")
+    private Cash cash;
 }
