@@ -17,19 +17,16 @@ public class SupplierRequest {
     @Size(max = 100,  message = "The name must be less than 100 characters")
     private String name; 
 
-    @NotBlank(message = "Contact is required")
-    @Size(max = 100,  message = "The contact must be less than 100 characters")
-    private String contact;
-
-    @NotBlank(message = "Adress is required")
-    @Size(max = 100)
-    private String address;
-
     @NotBlank(message = "The phone number is required")
     @Size(max = 22)
     private Integer phone;
 
+    @NotBlank(message = "The email is required")
     @Email(message = "The email must be a valid email")
     private String email;
+
+    
+    @NotBlank(message = "the company id is required")
+    private String companyId;
 
 }

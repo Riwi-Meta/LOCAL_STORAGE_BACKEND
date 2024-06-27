@@ -3,16 +3,15 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import org.apache.coyote.BadRequestException;
-import org.springdoc.api.ErrorMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.SupplierRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.SupplierResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.SupplierResponseRelations;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Supplier;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.SupplierRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.ISupplierService;
@@ -34,14 +33,14 @@ public class SuplierService implements ISupplierService{
     private EmailHelpper emailHelpper;
     
     @Override
-    public SupplierResponse create(SupplierRequest request) {
+    public SupplierResponseRelations create(SupplierRequest request) {
         Supplier supplier = supplierMapper.toSupplier(request);
         supplier.setEnable(true);
         return supplierMapper.toSupplierResponse(supplierRepository.save(supplier));
     }
 
     @Override
-    public Optional<SupplierResponse> getById(String id) {
+    public Optional<SupplierResponseRelations> getById(String id) {
 
         Optional<Supplier> supplier = supplierRepository.findById(id);
         if (supplier.isEmpty()) throw new IdNotFoundException("SUPPLIER", id);
@@ -50,7 +49,7 @@ public class SuplierService implements ISupplierService{
     }
 
     @Override
-    public Page<SupplierResponse> getAll(Pageable pageable) {
+    public Page<SupplierResponseRelations> getAll(Pageable pageable) {
         return supplierRepository.findAll(pageable).map(supplier -> supplierMapper.toSupplierResponse(supplier));
     }
 
@@ -62,11 +61,16 @@ public class SuplierService implements ISupplierService{
 
     @Override
     public void delete(String id) {
-        Supplier supplier = supplierRepository.findById(id).orElseThrow(()-> new IdNotFoundException("SUPPLIER", id));
+        Supplier supplier = supplierRepository.findById(id)
+        .orElseThrow(()-> new IdNotFoundException("SUPPLIER", id));
         supplier.setEnable(false);
         supplierRepository.save(supplier);
     }
 
-    
-
+    @Override
+    public Optional<SupplierResponseRelations> getByName(String supplierName) {
+        Optional<Supplier> supplier = supplierRepository.findByName(supplierName)
+        if (supplier.isEmpty()) throw new IdNotFoundException("SUPPLIER", supplierName);
+        return supplier.map(supplierMapper::toSupplierResponse);
+    }
 }

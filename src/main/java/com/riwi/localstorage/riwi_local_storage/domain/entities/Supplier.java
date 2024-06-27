@@ -1,10 +1,15 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,18 +32,19 @@ public class Supplier {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "contact", nullable = false)
-    private String contact;
-
-    @Column(name = "address", nullable = false)
-    private String address;
-
     @Column(name = "phone", nullable = false)
     private Integer phone;
+
 
     @Column(name = "email", nullable = false)
     private String email;
 
+
     @Column(name = "enable", nullable = false)
     private Boolean enable;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company companyId;
 }
