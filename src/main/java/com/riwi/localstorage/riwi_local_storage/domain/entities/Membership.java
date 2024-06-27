@@ -39,7 +39,6 @@ public class Membership {
     @Lob
     private String description;
 
-    //Relation with entity suscription
     @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Suscription> suscriptions;
 }

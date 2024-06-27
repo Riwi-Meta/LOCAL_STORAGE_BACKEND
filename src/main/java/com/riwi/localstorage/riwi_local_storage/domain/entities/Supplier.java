@@ -44,7 +44,6 @@ public class Supplier {
     @Column(name = "email", nullable = false)
     private String email;
 
-    // Supplier - Supplier_Order: One-to-Many (1:M) A supplier can have many supplier orders.
     @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SupplierOrder> supplierOrders;
 }

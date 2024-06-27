@@ -23,8 +23,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "cash_registers")
 public class CashRegister {
-
-  
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -46,8 +44,6 @@ public class CashRegister {
     @Column(name = "init_amount", nullable = false)
     private Double initAmount;
 
-
-    //Relation with Cash
     @ManyToOne
     @JoinColumn(name="cash_id", referencedColumnName="id")
     private Cash cash;

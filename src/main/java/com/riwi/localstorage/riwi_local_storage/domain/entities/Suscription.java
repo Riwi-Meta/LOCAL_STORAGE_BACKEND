@@ -44,12 +44,10 @@ public class Suscription {
     @Column(name = "status")
     private StatusType status;
 
-    //Relation with entity user
     @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn( name = "user_id",referencedColumnName = "id")
     private User user;
 
-    //Relation with entity membership
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "membership_id", referencedColumnName = "id", nullable = false)
     private Membership membership;

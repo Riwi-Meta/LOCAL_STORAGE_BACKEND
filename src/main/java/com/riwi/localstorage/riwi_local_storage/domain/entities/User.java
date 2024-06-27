@@ -46,20 +46,16 @@ public class User {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    //Relation with entity role
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
-    //Relation with entity subscription
     @OneToOne(mappedBy = "user")
     private Suscription suscription;
 
-    //Relation with entity store
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Store> stores;
 
-    //Relation with entity sale
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
 }

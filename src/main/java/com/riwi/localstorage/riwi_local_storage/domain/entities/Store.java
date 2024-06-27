@@ -34,11 +34,9 @@ public class Store {
     @Column(nullable = false)
     private String name;
 
-    //Relation with Branch
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Branch> branches;
 
-    //Relation with entity user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;

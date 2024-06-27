@@ -14,8 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -44,12 +42,10 @@ public class Product {
     @Column(name = "buying_price", nullable = true)
     private Double buyingPrice;
     
-    // Category - Product: One-to-Many (1:M) A Category can have many Products.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    // Product - Inventory: Many-to-One (M:1) Many Product is associated with one Inventory.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;

@@ -3,6 +3,8 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountType;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,11 +50,6 @@ public class Discount {
     @Column(name = "code", nullable = false)
     private String code;
 
-    //Relation with entity sale
     @OneToMany(mappedBy = "discount", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
-}
-
-enum DiscountType {
-   
 }

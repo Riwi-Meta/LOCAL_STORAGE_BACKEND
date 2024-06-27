@@ -47,29 +47,22 @@ public class Sale {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    //Relation with entity user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    //Relation with entity discount
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = false)
     private Discount discount;
 
-    //Relation with entity saleDetail
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SaleDetail> salesDetails;
 
-    //Relation with entity branch
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = false)
     private Branch branch;
 
-    //Relation with entity cash
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cash_id", referencedColumnName = "id", nullable = false)
-    private Cash cash;
-
-    
+    private Cash cash;    
 }

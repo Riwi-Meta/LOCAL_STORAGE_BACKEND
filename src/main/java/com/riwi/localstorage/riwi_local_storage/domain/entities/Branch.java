@@ -49,20 +49,16 @@ public class Branch {
     @Column(length = 50)
     private String phone;
 
-    //Relation with Cash
     @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Cash> cash;
 
-    //Relation with Store
     @ManyToOne
     @JoinColumn(name = "store_id", referencedColumnName = "id",nullable = false)
     private Store store;
   
-    // Branch - Inventory: One-to-Many (1:M) A branch can have many inventories.
     @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Inventory> inventory;
     
-    // Relation with entity sale
     @OneToMany(mappedBy = "branch", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
 

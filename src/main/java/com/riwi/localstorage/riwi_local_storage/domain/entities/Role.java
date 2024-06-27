@@ -36,7 +36,6 @@ public class Role {
     @Lob
     private String description;
 
-    //Relation with entity user
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<User> users;
 }

@@ -35,7 +35,6 @@ public class Category {
     @Lob
     private String description;
 
-    // Category - Product: One-to-Many (1:M) A Category can have many Products.
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Product> products;
     

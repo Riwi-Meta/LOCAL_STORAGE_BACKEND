@@ -50,20 +50,16 @@ public class Inventory {
     @Column(name = "expiration_date", nullable = false)
     private Date expirationDate;
 
-    // Inventory - Product: One-to-Many (1:M)  A Inventory can have many Products.
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Product> product;
 
-    // Branch - Inventory: One-to-Many (1:M) A branch can have many inventories.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;
 
-    // Inventory - Sale_Detail: One-to-Many (1:M) A inventory can have many Sale_Details.
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SaleDetail> saleDetails;
 
-    // Inventory - Supplier_Order: One-to-Many (1:M) An inventory can be part of many supplier orders.
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SupplierOrder> supplierOrders;
 

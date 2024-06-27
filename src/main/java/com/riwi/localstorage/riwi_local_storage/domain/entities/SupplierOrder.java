@@ -14,8 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,12 +39,10 @@ public class SupplierOrder {
     @Column(name = "tax", nullable = false)
     private Double tax;
 
-    // Inventory - Supplier_Order: One-to-Many (1:M) An inventory can be part of many supplier orders.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
 
-    // Supplier - Supplier_Order: One-to-Many (1:M) A supplier can have many supplier orders.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     private Supplier supplier;
