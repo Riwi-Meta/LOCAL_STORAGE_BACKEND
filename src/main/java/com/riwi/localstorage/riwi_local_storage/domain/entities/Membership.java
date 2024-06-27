@@ -13,16 +13,14 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "memberships")
 public class Membership {
@@ -36,14 +34,12 @@ public class Membership {
 
     @Column(name = "price", nullable = false)
     private Double price;
-    
+
     @Column(name = "description", nullable = true)
     @Lob
     private String description;
 
     //Relation with entity suscription
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Suscription> suscriptions;
 }

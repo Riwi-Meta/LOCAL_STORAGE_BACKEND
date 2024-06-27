@@ -15,16 +15,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "inventories")
 public class Inventory {
@@ -53,8 +51,6 @@ public class Inventory {
     private Date expirationDate;
 
     // Inventory - Product: One-to-Many (1:M)  A Inventory can have many Products.
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Product> product;
 
@@ -64,14 +60,10 @@ public class Inventory {
     private Branch branch;
 
     // Inventory - Sale_Detail: One-to-Many (1:M) A inventory can have many Sale_Details.
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SaleDetail> saleDetails;
 
     // Inventory - Supplier_Order: One-to-Many (1:M) An inventory can be part of many supplier orders.
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<SupplierOrder> supplierOrders;
 
