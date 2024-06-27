@@ -60,8 +60,24 @@ public class RoleService implements IRoleService {
 
     @Override
     public RoleResponse update(String id, RoleRequestUpdate request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'"); 
+        String updatedName = request.getName();
+
+        Optional<Role> existingRoleName = this.repository.findByName(updatedName);
+        
+        // Validation that the name is unique
+        if (existingRoleName.isPresent()) {
+            return null; // Here you have to set the error message when configuring the errors
+        } else {
+            Role role = this.find(id);
+        
+            Role roleUpdate = this.updateMapper.toEntity(request);
+
+            roleUpdate.setId(id);
+            roleUpdate.setStatus(role.getStatus());
+            roleUpdate.setUsers(role.getUsers());
+            
+            return this.updateMapper.toResponse(this.repository.save(roleUpdate));
+        }
     }
 
     private Role find(String id) {
