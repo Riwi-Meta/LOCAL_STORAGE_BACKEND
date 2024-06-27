@@ -41,4 +41,10 @@ public class MembershipController {
 
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MembershipResponse> get (@PathVariable String id){
+        return ResponseEntity.ok(this.imembershipService.getById(id));
+    }
 }
