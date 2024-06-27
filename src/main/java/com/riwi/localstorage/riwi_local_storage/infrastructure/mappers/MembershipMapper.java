@@ -16,4 +16,5 @@ public interface MembershipMapper {
   Membership requestToEntity (MembershipRequest membershipRequest );
 
   MembershipResponse entityToResponse (Membership membership);
+
 }

@@ -1,13 +1,15 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
 import java.util.Optional;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.MembershipNotFoundException;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.MembershipRepository;
@@ -31,29 +33,40 @@ public class MembershipService implements IMembershipService {
     Membership membership = membershipMapper.requestToEntity(request);
     return membershipMapper.entityToResponse(membershipRepository.save(membership));
   }
+    @Override
+    public Page<MembershipResponse> getAll(int page, int size) {
+        if (page < 0)
+            page = 0;
 
-  @Override
-  public void delete(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'delete'");
-  }
+        PageRequest pagination = PageRequest.of(page, size);
 
-  @Override
-  public Page<MembershipResponse> getAll(Pageable pageable) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAll'");
-  }
+        return this.membershipRepository.findAll(pagination).map(membership -> membershipMapper.toResponse(membership));
+    }
 
-  @Override
-  public Optional<MembershipResponse> getById(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getById'");
-  }
+    
 
-  @Override
-  public MembershipResponse update(String id, MembershipRequest request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
-  }
+    @Override
+    public MembershipResponse getById(String id) {
+        Membership membership = this.findMembership(id);
 
+        return membershipMapper.toResponse(membership);
+
+    }
+
+
+
+    @Override
+    public void updateMembershipStatus(String id, boolean enabled) {
+        Membership membership = findMembership(id);
+
+        membership.setEnabled(enabled);
+        this.membershipRepository.save(membership);
+    }
+
+
+
+    private Membership findMembership(String id) {
+
+        return this.membershipRepository.findById(id).orElseThrow(() -> new MembershipNotFoundException(id));
+    }
 }

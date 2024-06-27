@@ -30,6 +30,9 @@ public class Membership {
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @Column(nullable = true)
+    private boolean enabled;
+
     @Column(name = "description", nullable = true)
     @Lob
     private String description;
@@ -40,6 +43,8 @@ public class Membership {
     // fetch = FetchType.LAZY,
     // cascade = CascadeType.ALL)
     // Relation with entity subscription
+    // NOTE: *** Check if the user entity has a direct relationship with
+    // memberships. ***
     // NOTE: *** Check if the user entity has a direct relationship with
     // memberships. ***
     @Column(name = "user_id")
