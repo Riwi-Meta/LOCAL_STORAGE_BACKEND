@@ -69,7 +69,7 @@ public class SuplierService implements ISupplierService{
 
     @Override
     public Optional<SupplierResponseRelations> getByName(String supplierName) {
-        Optional<Supplier> supplier = supplierRepository.findByName(supplierName)
+        Optional<Supplier> supplier = supplierRepository.findByName(supplierName);
         if (supplier.isEmpty()) throw new IdNotFoundException("SUPPLIER", supplierName);
         return supplier.map(supplierMapper::toSupplierResponse);
     }
