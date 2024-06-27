@@ -1,5 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
 
+import java.util.List;
+
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,9 +16,13 @@ public interface RoleDisableMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", ignore = true)
     @Mapping(target = "description", ignore = true)
+    @Mapping(target = "users", ignore = true)
     Role toEntity(RoleRequestUpdateStatus request);
 
     @InheritInverseConfiguration
     RoleResponse toResponse(Role entity);
 
+    List<Role> toEntityList(List<RoleRequestUpdateStatus> request);
+
+    List<RoleResponse> toResponseList(List<Role> entity);
 }
