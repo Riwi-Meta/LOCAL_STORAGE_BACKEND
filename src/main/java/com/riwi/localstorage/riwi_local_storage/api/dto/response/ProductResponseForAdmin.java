@@ -1,25 +1,15 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponseForAdmin {
-
-    private String id;
-
-    private String name;
-
-    private String description;
-
-    private String barcode;
-
-    private Double sellingPrice;
+public class ProductResponseForAdmin extends ProductResponse{
 
     private Double buyingPrice;
     
