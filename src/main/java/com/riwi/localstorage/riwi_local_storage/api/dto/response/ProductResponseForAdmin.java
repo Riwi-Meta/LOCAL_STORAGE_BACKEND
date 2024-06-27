@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProductResponseForAdmin extends ProductResponse{
 
+    private String id;
+
     private Double buyingPrice;
     
     private String categoryName;
