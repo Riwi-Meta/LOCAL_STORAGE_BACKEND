@@ -2,9 +2,12 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +27,6 @@ public class SaleDetail {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "inventory_id", nullable = false)
-    private String inventoryId;
-
     @Column(name = "quantity", nullable = false)
     private Double quantity;
 
@@ -36,8 +36,11 @@ public class SaleDetail {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    // Type must be change to Discount to "Sale" in the future
-    // @ManyToOne
-    // @JoinColumn(name = "sale_id", nullable = false)
-    private Double sale;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sale_id", referencedColumnName = "id", nullable = false)
+    private Sale sale;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
+    private Inventory inventory;
 }
