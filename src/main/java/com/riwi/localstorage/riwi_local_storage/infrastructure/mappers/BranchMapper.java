@@ -17,6 +17,4 @@ public interface BranchMapper {
 
     @Mapping(target = "id", ignore = true)
     void branchToUpdate(BranchRequest request, @MappingTarget Branch branch);
-
-
 }
