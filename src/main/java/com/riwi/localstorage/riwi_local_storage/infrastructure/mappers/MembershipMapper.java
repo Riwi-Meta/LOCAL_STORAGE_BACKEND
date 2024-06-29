@@ -11,10 +11,11 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MembershipMapper {
 
-  @Mapping(target = "id", ignore = true)  
-  @Mapping(target = "user", ignore = true)  
-  Membership requestToEntity (MembershipRequest membershipRequest );
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "user", ignore = true)
+  @Mapping(target = "enabled", ignore = true)
+  Membership requestToEntity(MembershipRequest membershipRequest);
 
-  MembershipResponse entityToResponse (Membership membership);
+  MembershipResponse entityToResponse(Membership membership);
 
 }
