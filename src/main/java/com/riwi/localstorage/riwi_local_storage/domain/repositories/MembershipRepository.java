@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 
 @Repository
-public interface MembershipRepository  extends JpaRepository<Membership,String>{
-  
+public interface MembershipRepository extends JpaRepository <Membership, String> {
+
 }

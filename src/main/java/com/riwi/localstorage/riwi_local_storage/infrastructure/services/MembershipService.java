@@ -1,31 +1,38 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
+import java.util.Optional;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.MembershipNotFoundException;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.MembershipRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IMembershipService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.MembershipMapper;
-import com.riwi.localstorage.riwi_local_storage.util.exeptions.MembershipNotFoundException;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class MembershipService implements IMembershipService {
+  
+  @Autowired
+  MembershipRepository membershipRepository;
 
-    @Autowired
-    private MembershipMapper membershipMapper;
+  @Autowired
+  MembershipMapper membershipMapper;
 
-    @Autowired
-    private final MembershipRepository membershipRepository;
-
+  @Override
+  public MembershipResponse create(MembershipRequest request) {
+    Membership membership = membershipMapper.requestToEntity(request);
+    return membershipMapper.entityToResponse(membershipRepository.save(membership));
+  }
     @Override
     public Page<MembershipResponse> getAll(int page, int size) {
         if (page < 0)
@@ -62,5 +69,4 @@ public class MembershipService implements IMembershipService {
 
         return this.membershipRepository.findById(id).orElseThrow(() -> new MembershipNotFoundException(id));
     }
-
 }
