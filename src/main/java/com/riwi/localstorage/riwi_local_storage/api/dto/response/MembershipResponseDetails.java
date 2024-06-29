@@ -1,5 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +11,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MembershipResponseDetails {
-  private String id;
-  private String type;
-  private Double price;
-  private String description;
+public class MembershipResponseDetails extends MembershipResponse {
   
-  //organizar suscripcion
-  //private List<SuscriptionResponse> suscriptions;
+  private List<SubscriptionResponse> subscriptions;
 }
