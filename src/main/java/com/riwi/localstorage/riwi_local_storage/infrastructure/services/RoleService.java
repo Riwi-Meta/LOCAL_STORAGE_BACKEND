@@ -36,8 +36,19 @@ public class RoleService implements IRoleService {
 
     @Override
     public RoleResponse create(RoleRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+
+        String newName = request.getName();
+
+        Optional<Role> existingRoleName = this.repository.findByName(newName);
+
+        if(existingRoleName.isPresent()){
+            return null;
+        }else{
+
+            Role role = this.createMapper.toEntity(request);
+    
+            return this.createMapper.toResponse(this.repository.save(role));
+        }
     }
 
     @Override
