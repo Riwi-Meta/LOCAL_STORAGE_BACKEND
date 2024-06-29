@@ -8,8 +8,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MembershipSortCriteria {
-  NAME_ASC("name", Sort.Direction.ASC),
-  NAME_DESC("name", Sort.Direction.DESC),
+  NAME_ASC("type", Sort.Direction.ASC),
+  NAME_DESC("type", Sort.Direction.DESC),
   PRICE_ASC("price", Sort.Direction.ASC),
   PRICE_DESC("price", Sort.Direction.DESC);
 

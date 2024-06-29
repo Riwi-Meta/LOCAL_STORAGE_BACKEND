@@ -6,11 +6,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,6 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.Membershi
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IMembershipService;
 import com.riwi.localstorage.riwi_local_storage.util.enums.MembershipSortCriteria;
-import com.riwi.localstorage.riwi_local_storage.util.exeptions.BadRequestException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -44,7 +42,7 @@ public class MembershipController {
   @ApiResponse(responseCode = "400", description = "When the request is not valid", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
   })
-  @PostMapping
+  @PostMapping(path = "/add")
   public ResponseEntity<MembershipResponse> create(@Validated @RequestBody MembershipRequest request) {
     System.out.println(request);
     return ResponseEntity.ok(this.imembershipService.create(request));
@@ -54,13 +52,7 @@ public class MembershipController {
   public ResponseEntity<Page<MembershipResponse>> getAll(
       @RequestParam(required = false) MembershipSortCriteria sortCriteria,
       @RequestParam(defaultValue = "1") int page,
-      @RequestParam(defaultValue = "5") int size,
-      BindingResult bindingResult) {
-
-    if (bindingResult.hasErrors()) {
-      String msg = bindingResult.getFieldError().getDefaultMessage();
-      throw new BadRequestException(msg);
-    }
+      @RequestParam(defaultValue = "5") int size) {
 
     if (page < 1) {
       page = 1;
@@ -75,7 +67,7 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.getAll(pageable));
   }
 
-  @PatchMapping("/{id}/status")
+  @DeleteMapping("/{id}/status")
   public ResponseEntity<Void> updateMembershipStatus(@PathVariable String id,
       @Validated @RequestBody MembershipEnabledRequest membershipEnabledRequest) {
 
