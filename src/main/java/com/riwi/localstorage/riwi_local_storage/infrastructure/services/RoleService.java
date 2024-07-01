@@ -15,6 +15,7 @@ import com.riwi.localstorage.riwi_local_storage.domain.repositories.RoleReposito
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IRoleService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleCreateMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleDisableMapper;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
 
@@ -34,6 +35,9 @@ public class RoleService implements IRoleService {
 
     @Autowired
     private final RoleDisableMapper disableMapper;
+
+    @Autowired
+    private final RoleMapper roleMapper;
 
     @Override
     public RoleResponse create(RoleRequest request) {
@@ -62,14 +66,12 @@ public class RoleService implements IRoleService {
 
     @Override
     public Page<RoleResponse> getAll(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return repository.findAll(pageable).map(role->this.roleMapper.toResponse(role));
     }
 
     @Override
     public Optional<RoleResponse> getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return Optional.ofNullable(this.updateMapper.toResponse(this.find(id))); //???
     }
 
     @Override
