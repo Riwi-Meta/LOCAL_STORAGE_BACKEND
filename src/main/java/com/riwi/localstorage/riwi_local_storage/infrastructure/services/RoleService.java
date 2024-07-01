@@ -17,6 +17,7 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleCreat
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleDisableMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.RoleUpdateMapper;
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
 
 import lombok.AllArgsConstructor;
 
@@ -57,8 +58,10 @@ public class RoleService implements IRoleService {
 
     @Override
     public void delete(String id) {    //DISABLE STATUS
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Role roleDisable = this.find(id);
+        roleDisable.setStatus(StatusType.INACTIVE);
+
+        this.repository.save(roleDisable);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,6 +45,7 @@ public class RoleController {
         return ResponseEntity.ok(this.service.update(id, request));
     }
 
+
     @GetMapping
     public ResponseEntity<Page<RoleResponse>>getAll(
         @RequestParam(defaultValue = "1") int page,
@@ -62,6 +63,12 @@ public class RoleController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<RoleResponse>> getById(@PathVariable String id){
         return ResponseEntity.ok(this.service.getById(id));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> disable(@PathVariable String id){
+        this.service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
