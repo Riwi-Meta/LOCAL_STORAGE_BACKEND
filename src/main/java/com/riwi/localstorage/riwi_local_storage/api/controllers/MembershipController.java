@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.MembershipEnabledRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
@@ -41,6 +42,9 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.create(request));
   }
 
+  @Operation(summary = "this method allows get all the list of memberships in paginated form")
+    @ApiResponse(responseCode = "400", description = "When the connection with the data base fail", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorsResponse.class))})
   @GetMapping
   public ResponseEntity<Page<MembershipResponse>> getAll(
       @RequestParam(required = false) MembershipSortCriteria sortCriteria,
@@ -69,6 +73,9 @@ public class MembershipController {
     return ResponseEntity.ok().build();
   }
 
+  @Operation(summary = "This method allows you find a membership for a id especific")
+    @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @GetMapping("/{id}")
   public ResponseEntity<MembershipResponse> get(@PathVariable String id) {
     return ResponseEntity.ok(this.imembershipService.getById(id));
