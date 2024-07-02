@@ -8,15 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseForAdmin;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.ProductMapper;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class ProductService implements IProductService{
     
@@ -27,7 +29,7 @@ public class ProductService implements IProductService{
     @Override
     public ProductResponse create(ProductRequest request) {
         Product product = productMapper.productRequestToProduct(request);
-        
+        product.setEnable(true);
         return productMapper.productToProductResponse(this.productRepository.save(product));
     }
 
@@ -40,30 +42,29 @@ public class ProductService implements IProductService{
 
     @Override
     public Page<ProductResponse> getAll(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return productRepository.findAll(pageable).map(productMapper::productToProductResponse);
     }
 
     @Override
     public ProductResponse update(String id, ProductRequest request) {
 
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new RuntimeException("No product"));
-
-        Product productRequest = productMapper.productRequestToProduct(request);
-        productRequest.setId(product.getId());
-      
-        return productMapper.productToProductResponse(this.productRepository.save(productRequest));
+        Product product = find(id);
+        productMapper.productToUpdate(request, product);
+ 
+        return productMapper.productToProductResponse(this.productRepository.save(product));
     }
 
     @Override
     public void delete(String id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("No product"));
-
-        productRepository.deleteById(product.getId());
+        Product product = this.find(id);
+        
+        if (product != null) {
+            product.setEnable(false);
+            this.productRepository.save(product);
+        }
     }
     
-    @Override
-    public ProductResponseForAdmin findById(String id) {
-        return this.productRepository.findById(id).map(productMapper::productToProductResponseForAdmin).orElseThrow(() -> new RuntimeException("No product"));
+    public Product find(String id) {
+        return productRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Product", id));
     }
 }
