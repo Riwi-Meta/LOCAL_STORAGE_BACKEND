@@ -10,11 +10,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.BaseErrorResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ListErrorsResponse;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 
 @RestControllerAdvice
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController {
+
+    public BaseErrorResponse IdNotFound(IdNotFoundException excepcion){
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(excepcion.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.name());
+        errorResponse.setCode(HttpStatus.BAD_REQUEST.value());
+        
+        return errorResponse;
+    }
+
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseErrorResponse handleBadRequest(
