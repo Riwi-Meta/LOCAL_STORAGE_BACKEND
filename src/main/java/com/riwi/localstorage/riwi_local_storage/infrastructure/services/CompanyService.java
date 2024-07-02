@@ -46,6 +46,7 @@ public class CompanyService {
 
     public void deleteCompany(String id) {
         Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
-        companyRepository.delete(company);
+        company.setIsEnable(false);
+        companyRepository.save(company);
     }
 }
