@@ -13,5 +13,5 @@ import lombok.Setter;
 public class MembershipEnabledRequest {
 
   @NotNull(message = "The enabled field must not be null")
-  private boolean enabled;
+  private boolean isEnabled;
 }

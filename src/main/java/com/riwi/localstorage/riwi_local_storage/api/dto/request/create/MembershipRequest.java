@@ -7,11 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @Builder
 public class MembershipRequest {

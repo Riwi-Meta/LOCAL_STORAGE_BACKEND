@@ -15,5 +15,5 @@ public class MembershipResponse {
   private String type;
   private Double price;
   private String description;
-  private boolean enabled;
+  private boolean isEnabled;
 }

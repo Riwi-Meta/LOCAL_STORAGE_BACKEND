@@ -30,9 +30,9 @@ import lombok.Setter;
 
 public class Subscription {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(name = "purchase_date")
     private LocalDate purchaseDate;
@@ -44,8 +44,8 @@ public class Subscription {
     @Column(name = "status")
     private StatusType status;
 
-    @OneToOne( fetch = FetchType.LAZY)
-    @JoinColumn( name = "user_id",referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

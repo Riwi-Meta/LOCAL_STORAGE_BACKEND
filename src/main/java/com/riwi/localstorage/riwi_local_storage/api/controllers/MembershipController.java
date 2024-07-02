@@ -64,7 +64,7 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.getAll(pageable));
   }
 
-  @Operation(summary = "This method allows you modify the status of the a memebership for a id especific")
+  @Operation(summary = "This method allows you modify the status of the a membership for a id specific")
     @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @DeleteMapping("/{id}/status")
@@ -76,7 +76,7 @@ public class MembershipController {
     return ResponseEntity.ok().build();
   }
 
-  @Operation(summary = "This method allows you find a membership for a id especific")
+  @Operation(summary = "This method allows you find a membership for a id specific")
     @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @GetMapping("/{id}")
@@ -84,7 +84,7 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.getById(id));
   }
 
-  @Operation(summary = "This method allows you modify a membership for a id especific")
+  @Operation(summary = "This method allows you modify a membership for a id specific")
     @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @PutMapping("/{id}")

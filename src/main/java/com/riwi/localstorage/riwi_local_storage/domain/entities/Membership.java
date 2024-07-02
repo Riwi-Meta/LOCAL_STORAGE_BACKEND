@@ -36,7 +36,7 @@ public class Membership {
     private Double price;
 
     @Column(nullable = true)
-    private boolean enabled;
+    private boolean isEnabled;
 
     @Column(name = "description", nullable = true)
     @Lob

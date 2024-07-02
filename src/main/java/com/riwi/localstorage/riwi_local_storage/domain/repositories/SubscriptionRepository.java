@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Subscription;
 
 @Repository
-public interface SubscriptionRepository extends JpaRepository<Subscription, Integer>{
+public interface SubscriptionRepository extends JpaRepository<Subscription, String>{
 
     
 }
