@@ -23,7 +23,7 @@ public interface CashRegisterMapper {
     
 
     @Mappings({
-        @Mapping(target = "cash", source = "cash")
+        @Mapping(target = "cash.id", source = "cash.id")
       })
     CashRegisterResponseRelations toCashRegisterResponse(CashRegister cashRegister);
 }
