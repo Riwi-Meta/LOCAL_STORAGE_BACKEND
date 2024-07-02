@@ -35,6 +35,8 @@ public class Category {
     @Lob
     private String description;
 
+    private boolean isEnable; 
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Product> products;
     
