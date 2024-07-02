@@ -23,7 +23,7 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.RoleReque
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.RoleRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RoleResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IRoleService;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.services.RoleService;
+
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
