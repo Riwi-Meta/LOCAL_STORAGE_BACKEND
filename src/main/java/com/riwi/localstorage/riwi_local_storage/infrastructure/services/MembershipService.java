@@ -62,7 +62,8 @@ public class MembershipService implements IMembershipService {
 
     @Override
     public MembershipResponse update(String id, MembershipRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Membership existigMembership = findMembership(id);
+        membershipMapper.updateEntity(request, existigMembership);
+        return membershipMapper.entityToResponse(membershipRepository.save(existigMembership));
     }
 }
