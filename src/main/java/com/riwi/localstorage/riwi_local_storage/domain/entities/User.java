@@ -51,7 +51,7 @@ public class User {
     private Role role;
 
     @OneToOne(mappedBy = "user")
-    private Suscription suscription;
+    private Subscription suscription;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Store> stores;
