@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseForAdmin;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
@@ -45,10 +46,13 @@ public class ProductService implements IProductService{
 
     @Override
     public ProductResponse update(String id, ProductRequest request) {
-        Product product = find(id);
-        productMapper.productToUpdate(request, product);
 
-        return productMapper.productToProductResponse(this.productRepository.save(product));
+        Product product = this.productRepository.findById(id).orElseThrow(() -> new RuntimeException("No product"));
+
+        Product productRequest = productMapper.productRequestToProduct(request);
+        productRequest.setId(product.getId());
+      
+        return productMapper.productToProductResponse(this.productRepository.save(productRequest));
     }
 
     @Override
@@ -58,7 +62,8 @@ public class ProductService implements IProductService{
         productRepository.deleteById(product.getId());
     }
     
-    public Product find(String Id){
-        return this.productRepository.findById(Id).orElseThrow(() -> new RuntimeException("No product"));
+    @Override
+    public ProductResponseForAdmin findById(String id) {
+        return this.productRepository.findById(id).map(productMapper::productToProductResponseForAdmin).orElseThrow(() -> new RuntimeException("No product"));
     }
 }

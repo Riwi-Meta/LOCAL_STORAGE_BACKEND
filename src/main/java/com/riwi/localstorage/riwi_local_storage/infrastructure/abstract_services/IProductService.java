@@ -2,6 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseForAdmin;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.CreateService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.DeleteService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadAllService;
@@ -14,5 +15,7 @@ public interface IProductService extends
                 ReadAllService<ProductResponse>, 
                 UpdateService<ProductRequest, ProductResponse, String>, 
                 DeleteService<String>{
+
+        ProductResponseForAdmin findById(String id);            
     
 }
