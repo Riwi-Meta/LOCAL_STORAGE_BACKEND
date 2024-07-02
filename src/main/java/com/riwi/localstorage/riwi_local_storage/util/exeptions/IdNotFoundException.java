@@ -6,4 +6,13 @@ public class IdNotFoundException extends RuntimeException {
     public IdNotFoundException(String entityName, Long id) {
         super(String.format(ERROR_MESSAGE, entityName,id));
     }
+
+    public IdNotFoundException(String entityName, String id) {
+        super(String.format(ERROR_MESSAGE, entityName,id));
+    }
+
+    public IdNotFoundException(String entityName, Integer id) {
+        super(String.format(ERROR_MESSAGE, entityName,id));
+    }
+
 }
