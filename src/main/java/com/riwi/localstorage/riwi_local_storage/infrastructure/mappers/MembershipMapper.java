@@ -11,7 +11,6 @@ public interface MembershipMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "user", ignore = true),
             @Mapping(target = "enabled", ignore = true)
     })
     Membership requestToEntity(MembershipRequest membershipRequest);
@@ -20,7 +19,6 @@ public interface MembershipMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "user", ignore = true),
             @Mapping(target = "enabled", ignore = true)
     })
     Membership updateEntity(MembershipRequest membershipRequest, @MappingTarget Membership membership);
