@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.RoleRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.RoleRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RoleResponse;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IRoleService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.services.RoleService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +38,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RoleController {
     @Autowired
-    private final RoleService service;
+    private final IRoleService service;
 
     /*----------------------
      * GET ALL ROLES
