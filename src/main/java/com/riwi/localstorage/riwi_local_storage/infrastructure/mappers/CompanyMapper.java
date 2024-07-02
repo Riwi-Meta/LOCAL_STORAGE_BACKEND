@@ -14,8 +14,6 @@ public interface CompanyMapper {
 
   @Mappings({
       @Mapping(target = "id", ignore = true),
-      @Mapping(target = "isEnable", ignore = true),
-      @Mapping(target = "suppliers", ignore = true)
   })
   Company toCompany(CompanyRequest companyRequest);
 
@@ -23,8 +21,6 @@ public interface CompanyMapper {
 
   @Mappings({
     @Mapping(target = "id", ignore = true),
-    @Mapping(target = "isEnable", ignore = true),
-    @Mapping(target = "suppliers", ignore = true)
 })
   void updateFromCompanyRequest(CompanyRequest companyRequest, @MappingTarget Company company);
 }
