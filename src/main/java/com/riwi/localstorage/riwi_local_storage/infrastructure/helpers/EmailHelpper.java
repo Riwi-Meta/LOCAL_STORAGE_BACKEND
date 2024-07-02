@@ -68,7 +68,7 @@ public class EmailHelpper {
         );
 
     try {
-      message.setFrom(new InternetAddress("ralexale@gmail.com"));
+      message.setFrom(new InternetAddress("domain@gmail.com"));
       message.setSubject("Hey!, read that email!");
 
       message.setRecipients(MimeMessage.RecipientType.TO, destiny);

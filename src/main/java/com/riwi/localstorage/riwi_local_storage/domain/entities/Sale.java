@@ -1,12 +1,18 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,15 +32,6 @@ public class Sale {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "employee_id", nullable = false)
-    private String employeeId;
-
-    @Column(name = "branch_id", nullable = false)
-    private String branchId;
-
-    @Column(name = "cash_store_id", nullable = false)
-    private String cashStoreId;
-
     @Column(name = "date", nullable = false)
     private Date date;
 
@@ -50,8 +47,22 @@ public class Sale {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    // Type must be change to Discount to "Sale" in the future
-    // @ManyToOne
-    // @JoinColumn(name = "discount_id", nullable = true)
-    private Double discount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = false)
+    private Discount discount;
+
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<SaleDetail> salesDetails;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", referencedColumnName = "id", nullable = false)
+    private Branch branch;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cash_id", referencedColumnName = "id", nullable = false)
+    private Cash cash;    
 }
