@@ -18,8 +18,9 @@ import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundExcepti
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController {
 
-    public BaseErrorResponse IdNotFound(IdNotFoundException excepcion){
+    public ErrorResponse idNotFoundException(IdNotFoundException excepcion){
         ErrorResponse errorResponse = new ErrorResponse();
+        
         errorResponse.setMessage(excepcion.getMessage());
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.name());
         errorResponse.setCode(HttpStatus.BAD_REQUEST.value());

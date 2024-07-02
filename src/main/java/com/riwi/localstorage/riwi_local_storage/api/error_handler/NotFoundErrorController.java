@@ -6,19 +6,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
-import com.riwi.localstorage.riwi_local_storage.util.exeptions.ForbiddenException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.ResourceNotFoundException;
 
 @RestControllerAdvice
-@ResponseStatus(code = HttpStatus.FORBIDDEN)
-public class ForbiddenErrorController {
-
-    @ExceptionHandler(ForbiddenException.class)
-    public ErrorResponse accessDeniedException(ForbiddenException exception){
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
+public class NotFoundErrorController {
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ErrorResponse NotFoundException(ResourceNotFoundException exception){
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(exception.getMessage());
-        errorResponse.setStatus(HttpStatus.FORBIDDEN.name());
-        errorResponse.setCode(HttpStatus.FORBIDDEN.value());
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.name());
+        errorResponse.setCode(HttpStatus.NOT_FOUND.value());
 
         return errorResponse;
     }
+
+
+
 }
