@@ -45,38 +45,36 @@ public class RoleController {
      */
     // SWAGGER
     @Operation(
-        summary = "Get all roles", 
-        description = "Retrieve a paginated list of all roles", 
-        parameters = {
-            @Parameter(
-                name = "page", 
-                description = "Page number", 
-                schema = @Schema(
+    summary = "Get all roles", 
+    description = "Retrieve a paginated list of all roles", 
+    parameters = {
+        @Parameter(name = "page", 
+                   description = "Page number", 
+                   schema = @Schema(
                     type = "integer", 
-                    defaultValue = "0")),
-            @Parameter(
-                name = "size", 
-                description = "Page size", 
-                schema = @Schema(
+                    defaultValue = "1")),
+        @Parameter(name = "size", 
+                   description = "Page size", 
+                   schema = @Schema(
                     type = "integer", 
                     defaultValue = "10")),
-            @Parameter(
-                name = "sort", 
-                description = "Sort criteria", 
-                array = @ArraySchema(
+        @Parameter(name = "sort", 
+                   description = "Sort criteria", 
+                   array = @ArraySchema(
                     schema = @Schema(
                         type = "string", 
-                        allowableValues = {
-                    "id", "name", "description", "status" })))
-    }, responses = {
-            @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
-            @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
-            @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+                        defaultValue = "status", 
+                        allowableValues = {"id", "name", "description", "status"})))
+    }, 
+    responses = {
+        @ApiResponse(responseCode = "200", description = "SUCCESSFUL"),
+        @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+        @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+        @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+        @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping
-    public ResponseEntity<Page<RoleResponse>> getAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<RoleResponse>> getAll(@PageableDefault(page = 0, size = 10, sort = "status") Pageable pageable) {
         Page<RoleResponse> responses = this.service.getAll(pageable);
         return ResponseEntity.ok(responses);
     }
