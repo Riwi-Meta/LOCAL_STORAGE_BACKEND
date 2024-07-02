@@ -102,7 +102,17 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-
+		<!-- Flying Saucer y OpenHTMLtoPDF -->
+		<dependency>
+        	<groupId>org.xhtmlrenderer</groupId>
+        	<artifactId>flying-saucer-pdf-openpdf</artifactId>
+        	<version>9.1.22</version>
+    	</dependency>
+		<dependency>
+			<groupId>com.openhtmltopdf</groupId>
+			<artifactId>openhtmltopdf-pdfbox</artifactId>
+			<version>1.0.10</version>
+		</dependency>
 	</dependencies>
 
 	<build>
