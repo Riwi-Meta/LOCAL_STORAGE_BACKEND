@@ -41,6 +41,8 @@ public class Product {
 
     @Column(name = "buying_price", nullable = true)
     private Double buyingPrice;
+
+    private boolean isEnable;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
