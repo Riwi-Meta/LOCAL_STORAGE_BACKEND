@@ -12,6 +12,7 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Category;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.CategoryRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.ICategoryService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.CategoryMapper;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -48,11 +49,15 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public void delete(String id) {
-        //We will just modify the isEname attribute.
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        // search if is enable ande then change the is enabled attribute
+        Category category = this.find(id);
+        if (category != null){
+            category.setEnable(false);
+            this.categoryRepository.save(category);
+        }
     }
 
     public Category find(String id) {
-        return categoryRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new RuntimeException("No such category"));
+        return categoryRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Category", Long.valueOf(id)));
     }
 }
