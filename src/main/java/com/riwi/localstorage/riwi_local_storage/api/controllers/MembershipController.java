@@ -64,6 +64,9 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.getAll(pageable));
   }
 
+  @Operation(summary = "This method allows you modify the status of the a memebership for a id especific")
+    @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @DeleteMapping("/{id}/status")
   public ResponseEntity<Void> updateMembershipStatus(@PathVariable String id,
       @Validated @RequestBody MembershipEnabledRequest membershipEnabledRequest) {
@@ -81,6 +84,9 @@ public class MembershipController {
     return ResponseEntity.ok(this.imembershipService.getById(id));
   }
 
+  @Operation(summary = "This method allows you modify a membership for a id especific")
+    @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @PutMapping("/{id}")
   public ResponseEntity<MembershipResponse> updateMMembership(
           @PathVariable String id,
