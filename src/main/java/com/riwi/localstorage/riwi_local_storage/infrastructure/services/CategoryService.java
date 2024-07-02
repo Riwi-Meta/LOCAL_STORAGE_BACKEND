@@ -27,7 +27,7 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public List<CategoryResponse> readAll() {
-        return this.categoryRepository.findAll()
+        return this.categoryRepository.findAllByIsEnableTrue()
             .stream() 
             .map(categoryMapper::categoryToCategoryResponse) 
             .collect(Collectors.toList());
@@ -52,7 +52,7 @@ public class CategoryService implements ICategoryService{
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
-    public Category find(String Id){
-        return this.categoryRepository.findById(Id).orElseThrow(() -> new RuntimeException("No such category"));
+    public Category find(String id) {
+        return categoryRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new RuntimeException("No such category"));
     }
 }

@@ -11,12 +11,14 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Category;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
     @Mapping(target="id", ignore=true)
+    @Mapping(target="enable", ignore=true)
     @Mapping(target="products", ignore=true)
     Category categoryRequestToCategory(CategoryRequest category);
     
     CategoryResponse categoryToCategoryResponse(Category category);
     
     @Mapping(target="id", ignore=true)
+    @Mapping(target="enable", ignore=true)
     @Mapping(target="products", ignore=true)
     void categoryToUpdate(CategoryRequest category, @MappingTarget Category target);
 }
