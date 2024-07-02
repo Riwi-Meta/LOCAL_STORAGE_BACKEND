@@ -1,6 +1,5 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,27 +23,24 @@ import lombok.Setter;
 @Table(name = "supplier")
 public class Supplier {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", updatable = false, nullable = false)
+  private String id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+  @Column(name = "name", nullable = false)
+  private String name;
 
-    @Column(name = "phone", nullable = false)
-    private Integer phone;
+  @Column(name = "phone", nullable = false)
+  private Long phone;
 
+  @Column(name = "email", nullable = false)
+  private String email;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+  @Column(name = "enable", nullable = false)
+  private Boolean isEnable;
 
-
-    @Column(name = "enable", nullable = false)
-    private Boolean isEnable;
-
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id")
-    private Company company;
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @JoinColumn(name = "company_id")
+  private Company company;
 }

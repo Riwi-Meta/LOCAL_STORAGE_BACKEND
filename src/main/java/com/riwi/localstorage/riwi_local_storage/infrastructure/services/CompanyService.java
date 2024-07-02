@@ -1,52 +1,59 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.CompanyRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.CompanyResponseRelations;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Company;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.CompanyRepository;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.ICompanyService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.CompanyMapper;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
+import java.util.Optional;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
-public class CompanyService {
-    @Autowired
-    private CompanyRepository companyRepository;
+@AllArgsConstructor
+public class CompanyService implements ICompanyService {
 
-    @Autowired
-    private CompanyMapper companyMapper;
+  @Autowired
+  private CompanyRepository companyRepository;
 
-    public CompanyResponseRelations createCompany(CompanyRequest companyRequest) {
-        Company company = companyMapper.toCompany(companyRequest);
-        company = companyRepository.save(company);
-        return companyMapper.toCompanyResponse(company);
-    }
+  @Autowired
+  private CompanyMapper companyMapper;
 
-    public CompanyResponseRelations updateCompany(String id, CompanyRequest companyRequest) {
-        Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
-        companyMapper.updateFromCompanyRequest(companyRequest, company);
-        company = companyRepository.save(company);
-        return companyMapper.toCompanyResponse(company);
-    }
+  @Override
+  public CompanyResponseRelations create(CompanyRequest request) {
+    Company company = companyMapper.toCompany(request);
 
-    public CompanyResponseRelations getCompanyById(String id) {
-        Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
-        return companyMapper.toCompanyResponse(company);
-    }
+    company.setIsEnable(true);
+    company = companyRepository.save(company);
+    return companyMapper.toCompanyResponse(company);
+  }
 
-    public List<CompanyResponseRelations> getAllCompanies() {
-        return companyRepository.findAll().stream()
-                .map(companyMapper::toCompanyResponse)
-                .collect(Collectors.toList());
-    }
+  @Override
+  public Optional<CompanyResponseRelations> getById(String id) {
+    Optional<Company> company = companyRepository.findById(id);
+    if (company.isEmpty()) throw new IdNotFoundException("company", id);
 
-    public void deleteCompany(String id) {
-        Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
-        company.setIsEnable(false);
-        companyRepository.save(company);
-    }
+    return company.map(companyMapper::toCompanyResponse);
+  }
+
+  @Override
+  public void delete(String id) {
+    Company company = companyRepository
+      .findById(id)
+      .orElseThrow(() -> new IdNotFoundException("SUPPLIER", id));
+    company.setIsEnable(false);
+    companyRepository.save(company);
+  }
+
+  @Override
+  public Page<CompanyResponseRelations> getAll(Pageable pageable) {
+    return companyRepository
+      .findAll(pageable)
+      .map(supplier -> companyMapper.toCompanyResponse(supplier));
+  }
 }

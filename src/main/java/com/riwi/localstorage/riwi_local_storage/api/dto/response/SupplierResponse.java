@@ -10,10 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SupplierResponse {
-    private Long id; 
-    private String name; 
-    private String contact;
-    private String address; 
-    private Integer phone;
-    private String email;
+
+  private String id;
+  private String name;
+  private Long phone;
+  private String email;
 }

@@ -10,8 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyResponse {
-    private String id;
-    private String email;
-    private Integer phone;
-    private String address;
+
+  private String id;
+  private String email;
+  private Long phone;
+  private String address;
 }
