@@ -46,5 +46,5 @@ public class Supplier {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id")
-    private Company companyId;
+    private Company company;
 }
