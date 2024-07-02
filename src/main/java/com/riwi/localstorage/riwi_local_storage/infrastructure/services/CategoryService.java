@@ -58,6 +58,6 @@ public class CategoryService implements ICategoryService{
     }
 
     public Category find(String id) {
-        return categoryRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Category", Long.valueOf(id)));
+        return categoryRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Category", id));
     }
 }
