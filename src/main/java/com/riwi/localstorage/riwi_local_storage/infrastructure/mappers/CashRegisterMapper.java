@@ -6,6 +6,7 @@ import org.mapstruct.Mappings;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.CashRegisterRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.CashRegisterResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.CashRegisterResponseRelations;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.CashRegister;
 
 @Mapper(componentModel = "spring")
@@ -19,4 +20,10 @@ public interface CashRegisterMapper {
         @Mapping(target = "cash", ignore = true)
     })
     CashRegister cashRegisterRequestToCashRegister(CashRegisterRequest request);
+    
+
+    @Mappings({
+        @Mapping(target = "cash", source = "cash")
+      })
+    CashRegisterResponseRelations toCashRegisterResponse(CashRegister cashRegister);
 }
