@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CashRegisterResponseRealtions extends CashRegisterResponse{
+public class CashRegisterResponseRelations extends CashRegisterResponse{
     private Cash cash;
     //Corregir el response cuando se junte
 }
