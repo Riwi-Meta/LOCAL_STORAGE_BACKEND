@@ -1,11 +1,16 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,16 +42,6 @@ public class Membership {
     @Lob
     private String description;
 
-    // @Column(name = "user_id", nullable = false)
-    // @OneToMany(
-    // mappedBy = "memberships",
-    // fetch = FetchType.LAZY,
-    // cascade = CascadeType.ALL)
-    // Relation with entity subscription
-    // NOTE: *** Check if the user entity has a direct relationship with
-    // memberships. ***
-    // NOTE: *** Check if the user entity has a direct relationship with
-    // memberships. ***
-    @Column(name = "user_id")
-    private String user;
+    @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Suscription> suscriptions;
 }
