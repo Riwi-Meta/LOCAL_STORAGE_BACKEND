@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.MembershipEnabledRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IMembershipService;
@@ -89,9 +89,8 @@ public class MembershipController {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
   @PutMapping("/{id}")
   public ResponseEntity<MembershipResponse> updateMMembership(
-          @PathVariable String id,
-          @Validated @RequestBody MembershipRequest membershipRequest
-  ) {
+      @PathVariable String id,
+      @Validated @RequestBody MembershipRequest membershipRequest) {
     return ResponseEntity.ok(imembershipService.update(id, membershipRequest));
   }
 }

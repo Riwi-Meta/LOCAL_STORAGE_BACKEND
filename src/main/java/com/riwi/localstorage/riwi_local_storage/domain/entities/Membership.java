@@ -43,5 +43,5 @@ public class Membership {
     private String description;
 
     @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Suscription> suscriptions;
+    private List<Subscription> subscriptions;
 }

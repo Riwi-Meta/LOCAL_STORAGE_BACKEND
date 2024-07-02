@@ -1,6 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.CreateService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadAllService;

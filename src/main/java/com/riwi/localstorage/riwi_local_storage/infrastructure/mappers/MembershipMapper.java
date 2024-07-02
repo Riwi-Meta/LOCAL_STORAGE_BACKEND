@@ -2,7 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
 
 import org.mapstruct.*;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 
