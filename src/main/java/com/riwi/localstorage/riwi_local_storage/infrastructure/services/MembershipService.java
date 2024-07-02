@@ -1,6 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.MembershipRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +28,9 @@ public class MembershipService implements IMembershipService {
 
     @Override
     public MembershipResponse create(MembershipRequest request) {
+        if (verifyName(request.getType()) != null) {
+            throw new IllegalArgumentException("The type cant be repeated");
+        }
         Membership membership = membershipMapper.requestToEntity(request);
         return membershipMapper.entityToResponse(membershipRepository.save(membership));
     }
@@ -62,8 +65,15 @@ public class MembershipService implements IMembershipService {
 
     @Override
     public MembershipResponse update(String id, MembershipRequest request) {
-        Membership existigMembership = findMembership(id);
-        membershipMapper.updateEntity(request, existigMembership);
-        return membershipMapper.entityToResponse(membershipRepository.save(existigMembership));
+        Membership existingMembership = findMembership(id);
+        if (verifyName(request.getType()) != null) {
+            throw new IllegalArgumentException("The type cant be repeated");
+        }
+        membershipMapper.updateEntity(request, existingMembership);
+        return membershipMapper.entityToResponse(membershipRepository.save(existingMembership));
+    }
+
+    private Membership verifyName(String type){
+        return this.membershipRepository.findByType(type);
     }
 }
