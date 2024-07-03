@@ -13,14 +13,20 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 public interface ProductMapper {
     
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "enable", ignore = true)
+    @Mapping(target = "inventory", ignore = true)
+    @Mapping(target = "category.id", source = "categoryId")
     Product productRequestToProduct(ProductRequest request);
 
     ProductResponse productToProductResponse(Product product);
 
-    @Mapping(target = "id", ignore = true)
-    //@Mapping(target = "id", source = "categoryId.name")
+    @Mapping(target = "categoryName", source = "category.name")
     ProductResponseForAdmin productToProductResponseForAdmin(Product product);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "enable", ignore = true)
+    @Mapping(target = "inventory", ignore = true)
+    @Mapping(target = "category.id", source = "categoryId")
     void productToUpdate(ProductRequest request, @MappingTarget Product product);
 }
+  
