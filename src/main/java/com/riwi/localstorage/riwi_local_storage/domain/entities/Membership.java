@@ -35,10 +35,13 @@ public class Membership {
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @Column(nullable = true)
+    private boolean isEnabled;
+
     @Column(name = "description", nullable = true)
     @Lob
     private String description;
 
     @OneToMany(mappedBy = "membership", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Suscription> suscriptions;
+    private List<Subscription> subscriptions;
 }

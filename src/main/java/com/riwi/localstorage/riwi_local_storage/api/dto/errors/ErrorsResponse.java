@@ -1,19 +1,20 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.errors;
 
 
+
+import java.util.List;
+
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
 @EqualsAndHashCode(callSuper = true)
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class ErrorResponse extends BaseErrorResponse{
-    private String message;  
-
+@SuperBuilder
+public class ErrorsResponse extends BaseErrorsResponse{
+    private List<String> Errors;
 }
