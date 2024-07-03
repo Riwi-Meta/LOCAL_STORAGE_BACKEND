@@ -42,7 +42,8 @@ public class ProductService implements IProductService{
 
     @Override
     public Page<ProductResponse> getAll(Pageable pageable) {
-        return productRepository.findAll(pageable).map(productMapper::productToProductResponse);
+        return productRepository.findAllByIsEnableTrue(pageable)
+        .map(productMapper::productToProductResponse);
     }
 
     @Override
@@ -56,6 +57,7 @@ public class ProductService implements IProductService{
 
     @Override
     public void delete(String id) {
+
         Product product = this.find(id);
         
         if (product != null) {
