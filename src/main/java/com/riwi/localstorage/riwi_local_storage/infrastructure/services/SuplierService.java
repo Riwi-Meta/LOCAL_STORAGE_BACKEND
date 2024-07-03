@@ -23,13 +23,13 @@ import org.springframework.stereotype.Service;
 public class SuplierService implements ISupplierService {
 
   @Autowired
-  private SupplierRepository supplierRepository;
+  private final SupplierRepository supplierRepository;
 
   @Autowired
-  private SupplierMapper supplierMapper;
+  private final SupplierMapper supplierMapper;
 
   @Autowired
-  private EmailHelpper emailHelpper;
+  private final EmailHelpper emailHelpper;
 
   private CompanyRepository companyRepository;
 

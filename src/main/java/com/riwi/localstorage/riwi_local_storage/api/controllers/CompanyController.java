@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
   @Autowired
-  private ICompanyService companyService;
+  private final ICompanyService companyService;
 
   @PostMapping
   public ResponseEntity<CompanyResponseRelations> create(

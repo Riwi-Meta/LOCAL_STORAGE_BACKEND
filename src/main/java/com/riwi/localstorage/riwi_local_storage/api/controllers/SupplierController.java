@@ -13,12 +13,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/suppliers")
 @AllArgsConstructor
+@RequestMapping("/suppliers")
 public class SupplierController {
 
   @Autowired
-  private ISupplierService supplierService;
+  private final ISupplierService supplierService;
 
   @PostMapping
   public ResponseEntity<SupplierResponseRelations> create(

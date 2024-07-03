@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
 public class CompanyService implements ICompanyService {
 
   @Autowired
-  private CompanyRepository companyRepository;
+  private final CompanyRepository companyRepository;
 
   @Autowired
-  private CompanyMapper companyMapper;
+  private final CompanyMapper companyMapper;
 
   @Override
   public CompanyResponseRelations create(CompanyRequest request) {
