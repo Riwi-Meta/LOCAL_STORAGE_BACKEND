@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponse {
-
-    private String id;
+public class ProductResponseToBranch {
 
     private String name;
 
@@ -20,4 +18,6 @@ public class ProductResponse {
     private String barcode;
 
     private Double sellingPrice;
+
+    private BranchResponse branch;
 }

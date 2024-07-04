@@ -1,18 +1,17 @@
 package com.riwi.localstorage.riwi_local_storage.api.error_handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.BaseErrorResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ListErrorsResponse;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.errors.BaseErrorResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ListErrorsResponse;
-import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)

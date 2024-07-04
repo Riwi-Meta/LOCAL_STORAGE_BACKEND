@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BranchResponse {
 
-    private Long id;
+    private String id;
 
     private String email;
 
