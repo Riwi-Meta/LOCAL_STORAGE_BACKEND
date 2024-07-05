@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
 
 import lombok.AllArgsConstructor;
@@ -61,5 +62,10 @@ public class ProductController {
     public ResponseEntity<Void> delete(@PathVariable String id){
         this.productService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(path = "/findAll/{id}")
+    public ResponseEntity<ProductResponseToBranch> getAllAndBranch(@PathVariable String id) {
+        return ResponseEntity.ok(this.productService.getAllAndBranch(id));
     }
 }
