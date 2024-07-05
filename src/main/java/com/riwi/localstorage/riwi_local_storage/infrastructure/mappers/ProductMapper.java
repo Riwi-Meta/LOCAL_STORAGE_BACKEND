@@ -7,6 +7,7 @@ import org.mapstruct.MappingTarget;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseForAdmin;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 
 @Mapper(componentModel = "spring")
@@ -28,5 +29,14 @@ public interface ProductMapper {
     @Mapping(target = "inventory", ignore = true)
     @Mapping(target = "category.id", source = "categoryId")
     void productToUpdate(ProductRequest request, @MappingTarget Product product);
+
+    @Mapping(source = "product.inventory.branch.id", target = "branch.id")
+    @Mapping(source = "product.inventory.branch.city", target = "branch.city")
+    @Mapping(source = "product.inventory.branch.email", target = "branch.email")
+    @Mapping(source = "product.inventory.branch.phone", target = "branch.phone")
+    ProductResponseToBranch productToProductResponseToBranch(Product product);
+
+
+
 }
   

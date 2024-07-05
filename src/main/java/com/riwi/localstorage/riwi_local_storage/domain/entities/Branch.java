@@ -31,6 +31,9 @@ public class Branch {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    @Column(length = 50, nullable = false)
+    private String name;
+
     @Column(length = 50)
     private String email;
 

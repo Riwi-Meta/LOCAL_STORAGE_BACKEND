@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
@@ -69,4 +70,11 @@ public class ProductService implements IProductService{
     public Product find(String id) {
         return productRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Product", id));
     }
+
+    public ProductResponseToBranch getAllAndBranch(String id) {
+        return productRepository.findByIdAndIsEnableTrue(id)
+                .map(productMapper::productToProductResponseToBranch)
+                .orElse(new ProductResponseToBranch());
+    }
+
 }

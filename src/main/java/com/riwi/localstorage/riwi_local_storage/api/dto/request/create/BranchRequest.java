@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BranchRequest {
 
+    @Size(min = 1, max = 50, message = "The name must have a maximum of 50 characters.")
+    private String name;
 
     @Email(message = "Invalid email")
     @Size(min = 1, max = 50, message = "The email must have a maximum of 50 characters.")
