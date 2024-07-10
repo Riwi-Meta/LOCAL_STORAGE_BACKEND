@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class AuthController {
     
-    private final AuthService authService;
+    //private final AuthService authService;
     
     @PostMapping(value = "login")
     public String login(@RequestBody LoginRequest request)
