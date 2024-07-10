@@ -1,5 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.domain.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -20,4 +21,11 @@ public interface ProductRepository extends JpaRepository<Product, String>{
     @Query("SELECT p FROM Product p WHERE p.isEnable = true " +
     "AND (COALESCE(:category, '') = '' OR p.category.name = :category)")
     Page<Product> findByCriteria(String category, PageRequest pageable);
+
+    @Query("SELECT p.name, sd.quantity, s.date FROM Product p " +
+    "JOIN p.inventory inv " +
+    "JOIN inv.saleDetails sd " +
+    "JOIN sd.sale s " +
+    "ORDER BY s.date DESC LIMIT 10")
+    List<Product> findRecentlySoldProducts();
 }

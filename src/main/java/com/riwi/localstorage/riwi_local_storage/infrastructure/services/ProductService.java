@@ -1,5 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
@@ -71,6 +74,21 @@ public class ProductService implements IProductService{
         return productRepository.findByIdAndIsEnableTrue(id)
                 .map(productMapper::productToProductResponseToBranch)
                 .orElse(new ProductResponseToBranch());
+    }
+
+    @Override
+    public List<RecentSaleResponse> findRecentlySoldProducts() {
+        List<RecentSaleResponse> products = new ArrayList<>();
+        productRepository.findRecentlySoldProducts().forEach(product -> {
+            products.add(
+                new RecentSaleResponse(
+                        product.getName(),
+                        product.getInventory().getQuantity(),
+                        product.getInventory().getSaleDetails().get(0).getSale().getDate()
+                )
+            );
+        });
+        return products;
     }
 
 
