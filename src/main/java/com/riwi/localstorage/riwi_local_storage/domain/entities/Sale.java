@@ -52,7 +52,7 @@ public class Sale {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = true)
     private Discount discount;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)

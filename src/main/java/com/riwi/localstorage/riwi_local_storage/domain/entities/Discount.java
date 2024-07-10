@@ -12,8 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Date;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +40,11 @@ public class Discount {
   @Column(name = "amount", nullable = false)
   private Double amount;
 
-  @Column(name = "discount_date", nullable = false)
-  private Date discountDate;
+  @Column(nullable = false)
+  private LocalDate startDate;
+
+  @Column(nullable = false)
+  private LocalDate endDate;
 
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
@@ -49,11 +52,6 @@ public class Discount {
   @Column(name = "code", nullable = false)
   private String code;
 
-  @OneToMany(
-    mappedBy = "discount",
-    fetch = FetchType.EAGER,
-    cascade = CascadeType.ALL,
-    orphanRemoval = false
-  )
+  @OneToMany(mappedBy = "discount", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
   private List<Sale> sales;
 }
