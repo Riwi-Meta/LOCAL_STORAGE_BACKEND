@@ -33,10 +33,10 @@ public class Inventory {
     private String id;
 
     @Column(name = "store_id", updatable = false, nullable = false)
-    private String storeId;
+    private Store storeId;
 
     @Column(name = "product_id", updatable = false, nullable = false)
-    private String productId;
+    private Product productId;
 
     @Column(name = "quantity", nullable = false)
     private Double quantity;
@@ -45,7 +45,7 @@ public class Inventory {
     private Date lastUpdateDate;
 
     @Column(name = "supplier_order_id", nullable = false)
-    private String supplierOrderId;
+    private Supplier supplierOrderId;
 
     @Column(name = "expiration_date", nullable = false)
     private Date expirationDate;
