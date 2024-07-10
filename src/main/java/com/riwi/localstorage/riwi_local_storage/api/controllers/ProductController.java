@@ -38,12 +38,13 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> getAll(
         @RequestParam(defaultValue = "1") Integer page,
-        @RequestParam(defaultValue = "10") Integer size
+        @RequestParam(defaultValue = "10") Integer size,
+        @RequestParam(defaultValue = "") String category
     ){
         if (page < 0) page = 0;
         PageRequest pagination = PageRequest.of(page -1, size);
 
-        Page<ProductResponse> products = this.productService.getAll(pagination);
+        Page<ProductResponse> products = this.productService.findByCriteria(category ,pagination);
 
         return ResponseEntity.ok(products);
     }

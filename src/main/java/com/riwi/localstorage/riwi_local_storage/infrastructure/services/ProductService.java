@@ -3,7 +3,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
@@ -42,9 +42,8 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Page<ProductResponse> getAll(Pageable pageable) {
-        return productRepository.findAllByIsEnableTrue(pageable)
-        .map(productMapper::productToProductResponse);
+    public Page<ProductResponse> findByCriteria(String category, PageRequest pageable) {
+        return productRepository.findByCriteria(category, pageable).map(productMapper::productToProductResponse);
     }
 
     @Override
@@ -73,5 +72,7 @@ public class ProductService implements IProductService{
                 .map(productMapper::productToProductResponseToBranch)
                 .orElse(new ProductResponseToBranch());
     }
+
+
 
 }
