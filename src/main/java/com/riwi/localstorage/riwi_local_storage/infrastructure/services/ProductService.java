@@ -49,7 +49,6 @@ public class ProductService implements IProductService{
 
     @Override
     public ProductResponse update(String id, ProductRequest request) {
-
         Product product = find(id);
         productMapper.productToUpdate(request, product);
  
@@ -58,9 +57,7 @@ public class ProductService implements IProductService{
 
     @Override
     public void delete(String id) {
-
         Product product = this.find(id);
-        
         if (product != null) {
             product.setEnable(false);
             this.productRepository.save(product);

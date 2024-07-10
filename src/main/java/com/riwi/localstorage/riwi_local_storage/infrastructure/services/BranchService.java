@@ -13,9 +13,11 @@ import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchReposi
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IBranchService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.BranchMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class BranchService implements IBranchService {
 

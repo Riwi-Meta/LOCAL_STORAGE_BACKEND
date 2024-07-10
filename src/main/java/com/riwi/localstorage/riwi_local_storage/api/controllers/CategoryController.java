@@ -45,8 +45,9 @@ public class CategoryController {
         return ResponseEntity.ok(this.categoryService.update(id, request));
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
+        this.categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,13 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.SupplierRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.SupplierResponseRelations;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Company;
@@ -10,13 +18,8 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services
 import com.riwi.localstorage.riwi_local_storage.infrastructure.helpers.EmailHelpper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.SupplierMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
-import java.time.LocalDateTime;
-import java.util.Optional;
+
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -31,7 +34,8 @@ public class SuplierService implements ISupplierService {
   @Autowired
   private final EmailHelpper emailHelpper;
 
-  private CompanyRepository companyRepository;
+  @Autowired
+  private final CompanyRepository companyRepository;
 
   @Override
   public SupplierResponseRelations create(SupplierRequest request) {

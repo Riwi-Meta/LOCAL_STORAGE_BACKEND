@@ -35,8 +35,5 @@ public interface ProductMapper {
     @Mapping(source = "product.inventory.branch.email", target = "branch.email")
     @Mapping(source = "product.inventory.branch.phone", target = "branch.phone")
     ProductResponseToBranch productToProductResponseToBranch(Product product);
-
-
-
 }
   

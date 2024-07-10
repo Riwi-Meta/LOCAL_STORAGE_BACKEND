@@ -14,9 +14,11 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.CategoryMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class CategoryService implements ICategoryService{
 
