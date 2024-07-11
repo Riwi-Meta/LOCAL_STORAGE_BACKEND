@@ -1,7 +1,11 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.request.create;
 
-import com.riwi.localstorage.riwi_local_storage.domain.entities.User;
+import org.hibernate.validator.constraints.Length;
 
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +17,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StoreRequest {
 
-    private Integer id;
+    @NotBlank(message = "The name is required")
+    @Length(message = "The name must be less than 100 characters", max = 100 )
     private String name;
-    private User user;
+
+    @NotBlank(message = "The User_id is required")
+    private String user_id;
+
+    @NotNull(message = "Status is required.") 
+    private StatusType status;
     
 }

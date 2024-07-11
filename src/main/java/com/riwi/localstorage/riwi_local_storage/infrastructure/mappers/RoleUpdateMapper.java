@@ -17,7 +17,7 @@ public interface RoleUpdateMapper {
     @Mappings({
         @Mapping(target = "id", ignore = true),
         @Mapping(target = "status", ignore = true),
-        @Mapping(target = "users", ignore = true)
+        @Mapping(target = "user", ignore = true)
     })
     Role toEntity(RoleRequestUpdate request);
 
