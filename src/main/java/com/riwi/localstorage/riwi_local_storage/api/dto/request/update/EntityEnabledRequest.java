@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MembershipEnabledRequest {
+public class EntityEnabledRequest {
 
   @NotNull(message = "The enabled field must not be null")
   private boolean isEnabled;
