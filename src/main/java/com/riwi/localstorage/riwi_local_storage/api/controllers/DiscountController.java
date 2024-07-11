@@ -8,14 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.EntityEnabledRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.DiscountResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IDiscountService;
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountSortCriteria;
@@ -67,4 +71,17 @@ public class DiscountController {
   public ResponseEntity<Optional<DiscountResponse>> getDiscount(@PathVariable String id) {
     return ResponseEntity.ok(this.iDiscountService.getById(id));
   }
+
+  @Operation(summary = "This method allows you to 'delete' a discount for a id specific")
+  @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)) })
+  @DeleteMapping("/{id}/status")
+  public ResponseEntity<Void> updateDiscountStatus(@PathVariable String id,
+      @Validated @RequestBody EntityEnabledRequest discountEnabledRequest) {
+
+    iDiscountService.updateDiscountStatus(id, discountEnabledRequest.isEnabled());
+
+    return ResponseEntity.ok().build();
+  }
+
 }

@@ -34,9 +34,11 @@ public class DiscountService implements IDiscountService {
   }
 
   @Override
-  public void delete(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'delete'");
+  public void updateDiscountStatus(String id, boolean isActive) {
+    Discount discount = findDiscount(id);
+    discount.setIsActive(isActive);
+
+    this.discountRepository.save(discount);
   }
 
   @Override
