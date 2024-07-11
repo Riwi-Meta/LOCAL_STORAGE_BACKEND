@@ -51,6 +51,7 @@ public class DiscountService implements IDiscountService {
     return Optional.ofNullable(this.discountMapper.discountToDiscountResponse(discount));
   }
 
+  @Override
   public Discount findDiscount(String id) {
     return discountRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Discount ", id));
   }

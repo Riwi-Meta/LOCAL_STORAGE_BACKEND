@@ -30,8 +30,7 @@ public class MembershipService implements IMembershipService {
     }
     Membership membership = membershipMapper.requestToEntity(request);
     return membershipMapper.entityToResponse(
-      membershipRepository.save(membership)
-    );
+        membershipRepository.save(membership));
   }
 
   @Override
@@ -49,15 +48,16 @@ public class MembershipService implements IMembershipService {
     this.membershipRepository.save(membership);
   }
 
-  private Membership findMembership(String id) {
+  @Override
+  public Membership findMembership(String id) {
     return this.membershipRepository.findById(id)
-      .orElseThrow(() -> new MembershipNotFoundException(id));
+        .orElseThrow(() -> new MembershipNotFoundException(id));
   }
 
   @Override
   public Page<MembershipResponse> getAll(Pageable pageable) {
     return this.membershipRepository.findAll(pageable)
-      .map(membership -> membershipMapper.entityToResponse(membership));
+        .map(membership -> membershipMapper.entityToResponse(membership));
   }
 
   @Override
@@ -68,8 +68,7 @@ public class MembershipService implements IMembershipService {
     }
     membershipMapper.updateEntity(request, existingMembership);
     return membershipMapper.entityToResponse(
-      membershipRepository.save(existingMembership)
-    );
+        membershipRepository.save(existingMembership));
   }
 
   private Membership verifyName(String type) {
