@@ -2,10 +2,14 @@ package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
 import java.util.List;
 
+import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -33,6 +37,10 @@ public class Store {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
 
     @OneToMany(mappedBy = "store", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Branch> branches;
