@@ -17,7 +17,7 @@ public interface IStoreService extends
     CreateService<StoreRequest,StoreResponse>,
     DeleteService<String>,                                //this is disable status
     ReadAllService<StoreResponse>,
-    ReadService<StoreResponse,String>,
+    ReadService<StoreResponse,Integer>,
     UpdateService<StoreRequestUpdate,StoreResponse, String> {
     
 }

@@ -10,4 +10,6 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Store;
 @Repository
 public interface StoreRepository extends JpaRepository<Store, Integer>{
     Optional<Store> findByName(String name);
+    
+    Optional<Store> findById(Integer id);
 }
