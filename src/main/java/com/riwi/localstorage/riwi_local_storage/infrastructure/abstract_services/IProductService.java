@@ -17,5 +17,7 @@ public interface IProductService extends
                 DeleteService<String>{      
                     
             
-            ProductResponseToBranch getAllAndBranch(String id);        
+            /*ProductResponseToBranch getAllAndBranch(String id);*/
+
+            ProductResponseToBranch getAllAndBranchByStoreId(String id, String storeId);
 }

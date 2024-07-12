@@ -64,8 +64,15 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(path = "/findAll/{id}")
+    /*@GetMapping(path = "/findAll/{id}")
     public ResponseEntity<ProductResponseToBranch> getAllAndBranch(@PathVariable String id) {
         return ResponseEntity.ok(this.productService.getAllAndBranch(id));
+    }*/
+
+    @GetMapping(path = "/findAll/{storeId}/{id}")
+    public ResponseEntity<ProductResponseToBranch> getAllAndBranchByStoreId(
+            @PathVariable String id,
+            @PathVariable String storeId) {
+        return ResponseEntity.ok(this.productService.getAllAndBranchByStoreId(id, storeId));
     }
 }

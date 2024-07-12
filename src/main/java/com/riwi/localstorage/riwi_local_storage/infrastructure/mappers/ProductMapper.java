@@ -31,9 +31,10 @@ public interface ProductMapper {
     void productToUpdate(ProductRequest request, @MappingTarget Product product);
 
     @Mapping(source = "product.inventory.branch.id", target = "branch.id")
-    @Mapping(source = "product.inventory.branch.city", target = "branch.city")
+    @Mapping(source = "product.inventory.branch.name", target = "branch.name")
     @Mapping(source = "product.inventory.branch.email", target = "branch.email")
+    @Mapping(source = "product.inventory.branch.city", target = "branch.city")
     @Mapping(source = "product.inventory.branch.phone", target = "branch.phone")
+    @Mapping(source = "product.inventory.branch.store.id", target = "branch.storeId")
     ProductResponseToBranch productToProductResponseToBranch(Product product);
 }
-  

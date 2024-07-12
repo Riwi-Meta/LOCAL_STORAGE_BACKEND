@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class BranchResponse {
@@ -20,4 +19,6 @@ public class BranchResponse {
     private String city;
 
     private String phone;
+
+    private String storeId;
 }

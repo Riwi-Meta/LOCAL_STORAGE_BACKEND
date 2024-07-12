@@ -68,10 +68,18 @@ public class ProductService implements IProductService{
         return productRepository.findByIdAndIsEnableTrue(id).orElseThrow(() -> new IdNotFoundException("Product", id));
     }
 
-    public ProductResponseToBranch getAllAndBranch(String id) {
+    /*public ProductResponseToBranch getAllAndBranch(String id) {
         return productRepository.findByIdAndIsEnableTrue(id)
                 .map(productMapper::productToProductResponseToBranch)
                 .orElse(new ProductResponseToBranch());
+    }*/
+
+    public ProductResponseToBranch getAllAndBranchByStoreId(String id, String storeId){
+
+        return productRepository.findByIdAndIsEnableTrue(id)
+                .map(productMapper::productToProductResponseToBranch)
+                .orElse(new ProductResponseToBranch());
+
     }
 
 }
