@@ -72,8 +72,8 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.getAllAndBranch(id));
     }
 
-    @GetMapping(path = "/recentSoldProducts")
-    public ResponseEntity<List<RecentSaleResponse>> findRecentlySoldProducts() {
-        return ResponseEntity.ok(this.productService.findRecentlySoldProducts());
+    @GetMapping(path = "/recentSoldProducts/{branch_id}")
+    public ResponseEntity<List<RecentSaleResponse>> findRecentlySoldProducts(@PathVariable String branch_id) {
+        return ResponseEntity.ok(this.productService.findRecentlySoldProducts(branch_id));
     }
 }

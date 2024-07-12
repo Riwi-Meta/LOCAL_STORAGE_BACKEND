@@ -15,4 +15,6 @@ public class RecentSaleResponse {
         private String name;
         private Double quantity;
         private Date date;
+        private Double unitPrice;
+        private Double totalPrice;
 }

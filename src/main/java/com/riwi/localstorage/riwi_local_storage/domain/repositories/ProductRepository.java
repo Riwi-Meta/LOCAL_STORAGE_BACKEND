@@ -22,10 +22,21 @@ public interface ProductRepository extends JpaRepository<Product, String>{
     "AND (COALESCE(:category, '') = '' OR p.category.name = :category)")
     Page<Product> findByCriteria(String category, PageRequest pageable);
 
-    @Query("SELECT p.name, sd.quantity, s.date FROM Product p " +
-    "JOIN p.inventory inv " +
-    "JOIN inv.saleDetails sd " +
-    "JOIN sd.sale s " +
-    "ORDER BY s.date DESC LIMIT 10")
-    List<Product> findRecentlySoldProducts();
+    // @Query("SELECT p " +
+    //        "FROM Product p " +
+    //        "JOIN Inventory inv ON p.inventory.id = inv.id " +
+    //        "JOIN SaleDetail sd ON inv.id = sd.inventory.id " +
+    //        "JOIN Sale s ON sd.sale.id = s.id " +
+    //        "WHERE inv.branch.id = :branchId " +
+    //        "ORDER BY s.date DESC")
+    @Query(value = 
+    "SELECT p.* " +
+    "FROM product p " +
+    "JOIN inventories inv ON p.inventory_id = inv.id " +
+    "JOIN sale_detail sd ON inv.id = sd.inventory_id " +
+    "JOIN sale s ON sd.sale_id = s.id " +
+    "WHERE inv.branch_id = :branchId " +
+    "ORDER BY s.date DESC",
+    nativeQuery = true)
+    List<Product> findRecentlySoldProducts(String branchId);
 }

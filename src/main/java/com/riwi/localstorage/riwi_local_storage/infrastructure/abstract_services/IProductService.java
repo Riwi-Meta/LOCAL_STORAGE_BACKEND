@@ -22,5 +22,5 @@ public interface IProductService extends
                     
             Page<ProductResponse> findByCriteria(String category, PageRequest pageable);
             ProductResponseToBranch getAllAndBranch(String id);
-            List<RecentSaleResponse> findRecentlySoldProducts();
+            List<RecentSaleResponse> findRecentlySoldProducts(String branchId);
 }
