@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreResponse {
-    private String id;
+    private Integer id;
     private String name;
     private User user;
     private StatusType status;

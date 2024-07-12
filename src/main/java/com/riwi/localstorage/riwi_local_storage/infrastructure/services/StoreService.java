@@ -14,7 +14,9 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Store;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.StoreRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreMapper;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNameAlreadyExistsException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNotFoundException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +31,9 @@ public class StoreService implements IStoreService {
 
     @Autowired
     private final StoreMapper storeMapper;
+
+    @Autowired
+    private final StoreUpdateMapper updateMapper;
     
     @Override
     public StoreResponse create(StoreRequest request) {
@@ -42,22 +47,24 @@ public class StoreService implements IStoreService {
         }
     }
 
-    @Override
-    public void delete(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
+    /*----------------------------
+    * GET ALL
+    * ----------------------------
+    */
 
     @Override
     public Page<StoreResponse> getAll(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return storeRepository.findAll(pageable).map(store -> this.storeMapper.toResponse(store));
     }
 
+    /*----------------------------
+    * GET BY ID 
+    * ----------------------------
+    */
+
     @Override
-    public Optional<StoreResponse> getById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public Optional<StoreResponse> getById(Integer id) {
+       return Optional.ofNullable(this.updateMapper.toResponse(this.find(id))); 
     }
 
     @Override
@@ -65,5 +72,16 @@ public class StoreService implements IStoreService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
+
+    @Override
+    public void delete(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    private Store find(Integer id) {
+        return this.storeRepository.findById(id).orElseThrow(()->new StoreNotFoundException("Store not found by Id:" + id));
+    }
+
 }
+
