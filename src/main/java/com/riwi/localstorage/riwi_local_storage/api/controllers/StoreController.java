@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.StoreRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
-
 
 import lombok.AllArgsConstructor;
 
@@ -36,15 +36,16 @@ public class StoreController {
      */
 
     @GetMapping
-    public ResponseEntity<Page<StoreResponse>> getAll(@PageableDefault(page = 0, size = 10, sort = "status") Pageable pageable) {
+    public ResponseEntity<Page<StoreResponse>> getAll(
+            @PageableDefault(page = 0, size = 10, sort = "status") Pageable pageable) {
         Page<StoreResponse> responses = this.service.getAll(pageable);
         return ResponseEntity.ok(responses);
     }
 
-     /*--------------------
-     * GET BY ID
-     * -------------------
-     */
+    /*--------------------
+    * GET BY ID
+    * -------------------
+    */
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<StoreResponse>> getById(@PathVariable Integer id) {
@@ -55,26 +56,30 @@ public class StoreController {
      * CREATE STORE
      * -------------------
      */
-       
-        @PostMapping
-        public ResponseEntity<StoreResponse>create(
-            @Validated @RequestBody StoreRequest request
-        ){
-            return ResponseEntity.ok(this.service.create(request));
-        }
+
+    @PostMapping
+    public ResponseEntity<StoreResponse> create(
+            @Validated @RequestBody StoreRequest request) {
+        return ResponseEntity.ok(this.service.create(request));
+    }
 
     /*----------------------
      * UPDATE STORE
      * ---------------------
      */
 
-     //insert here your code
+    // insert here your code
 
     /*----------------------
      * DELETE STORE (DISABLE STORE - SOFT DELETE)
      * ---------------------
      */
 
-     //insert here your code
-    
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+        this.service.delete(id);
+        
+        return ResponseEntity.noContent().build();
+    }
 }
