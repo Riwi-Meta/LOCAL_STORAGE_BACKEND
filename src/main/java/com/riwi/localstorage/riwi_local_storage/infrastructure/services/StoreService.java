@@ -84,7 +84,7 @@ public class StoreService implements IStoreService {
     public void delete(Integer id) {
         Store storeDisable = this.find(id);
         if (storeDisable.getStatus() == StatusType.INACTIVE) {
-            throw new RoleAlreadyInactiveException("Store with ID " + id + " is already inactive.");
+            throw new StoreAlreadyInactiveException("Store with ID " + id + " is already inactive.");
         }
         storeDisable.setStatus(StatusType.INACTIVE);
 
