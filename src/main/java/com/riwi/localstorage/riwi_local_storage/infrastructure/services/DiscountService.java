@@ -66,14 +66,14 @@ public class DiscountService implements IDiscountService {
 
     validateDiscountRequest(request.getCode());
 
-  discount = discountMapper.updateDiscount(request);
+    discountMapper.updateDiscount(request, discount);
 
     return discountMapper.discountToDiscountResponse(discountRepository.save(discount));
   }
 
-  private void validateDiscountRequest(String  code) {
-    if (discountRepository.findByCode(code) != null){
-      throw new InvalidDataException("Code can't be repited");
+  private void validateDiscountRequest(String code) {
+    if (discountRepository.findByCode(code) != null) {
+      throw new InvalidDataException("Code can't be repeated");
     }
   }
 

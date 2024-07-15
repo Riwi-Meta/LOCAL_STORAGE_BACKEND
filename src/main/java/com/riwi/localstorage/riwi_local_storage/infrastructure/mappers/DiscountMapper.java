@@ -3,6 +3,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.DiscountRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.DiscountRequestUpdate;
@@ -21,5 +22,5 @@ public interface DiscountMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "sales", ignore = true)
-  Discount updateDiscount(DiscountRequestUpdate discountRequestUpdate);
+  Discount updateDiscount(DiscountRequestUpdate discountRequestUpdate, @MappingTarget Discount discount);
 }
