@@ -1,5 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.api.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
 
 import lombok.AllArgsConstructor;
@@ -38,12 +40,13 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> getAll(
         @RequestParam(defaultValue = "1") Integer page,
-        @RequestParam(defaultValue = "10") Integer size
+        @RequestParam(defaultValue = "10") Integer size,
+        @RequestParam(defaultValue = "") String category
     ){
         if (page < 0) page = 0;
         PageRequest pagination = PageRequest.of(page -1, size);
 
-        Page<ProductResponse> products = this.productService.getAll(pagination);
+        Page<ProductResponse> products = this.productService.findByCriteria(category ,pagination);
 
         return ResponseEntity.ok(products);
     }
@@ -67,5 +70,10 @@ public class ProductController {
     @GetMapping(path = "/findAll/{id}")
     public ResponseEntity<ProductResponseToBranch> getAllAndBranch(@PathVariable String id) {
         return ResponseEntity.ok(this.productService.getAllAndBranch(id));
+    }
+
+    @GetMapping(path = "/recentSoldProducts/{branch_id}")
+    public ResponseEntity<List<RecentSaleResponse>> findRecentlySoldProducts(@PathVariable String branch_id) {
+        return ResponseEntity.ok(this.productService.findRecentlySoldProducts(branch_id));
     }
 }
