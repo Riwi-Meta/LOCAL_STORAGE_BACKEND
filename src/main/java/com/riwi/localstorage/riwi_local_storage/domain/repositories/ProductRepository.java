@@ -24,19 +24,17 @@ public interface ProductRepository extends JpaRepository<Product, String>{
 
     // @Query("SELECT p " +
     //        "FROM Product p " +
-    //        "JOIN Inventory inv ON p.inventory.id = inv.id " +
+    //        "JOIN Inventory inv ON p.id = inv.product.id " +
     //        "JOIN SaleDetail sd ON inv.id = sd.inventory.id " +
     //        "JOIN Sale s ON sd.sale.id = s.id " +
     //        "WHERE inv.branch.id = :branchId " +
     //        "ORDER BY s.date DESC")
-    @Query(value = 
-    "SELECT p.* " +
-    "FROM product p " +
-    "JOIN inventories inv ON p.inventory_id = inv.id " +
-    "JOIN sale_detail sd ON inv.id = sd.inventory_id " +
-    "JOIN sale s ON sd.sale_id = s.id " +
-    "WHERE inv.branch_id = :branchId " +
-    "ORDER BY s.date DESC",
-    nativeQuery = true)
+           @Query(value = "SELECT p.* " +
+           "FROM product p " +
+           "JOIN inventories inv ON p.id = inv.product_id " +
+           "JOIN sale_detail sd ON inv.id = sd.inventory_id " +
+           "JOIN sale s ON sd.sale_id = s.id " +
+           "WHERE inv.branch_id = :branchId " +
+           "ORDER BY s.date DESC", nativeQuery = true)
     List<Product> findRecentlySoldProducts(String branchId);
 }
