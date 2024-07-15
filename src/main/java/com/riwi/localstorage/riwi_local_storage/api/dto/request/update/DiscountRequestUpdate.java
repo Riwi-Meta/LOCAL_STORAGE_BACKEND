@@ -19,19 +19,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class DiscountRequestUpdate {
 
-  private Boolean isActive;
+    private Boolean isActive;
 
-  private DiscountType type;
+    private DiscountType type;
 
-  @Positive(message = "The amount must be greater than 0")
-  private double amount;
+    @Positive(message = "The amount must be greater than 0")
+    private double amount;
 
-  @FutureOrPresent(message = "The date cant be in the past")
-  private LocalDate startDate;
+    @FutureOrPresent(message = "The date cant be in the past")
+    private LocalDate startDate;
 
-  @Future(message = "The end date cant be in the past")
-  private LocalDate endDate;
+    @Future(message = "The end date cant be in the past")
+    private LocalDate endDate;
 
-  @NotBlank(message = "The code cant be empty")
-  private String code;
+    @NotBlank(message = "The code cant be empty")
+    private String code;
 }
