@@ -16,7 +16,7 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
-import com.riwi.localstorage.riwi_local_storage.util.exeptions.RoleAlreadyInactiveException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreAlreadyInactiveException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNameAlreadyExistsException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNotFoundException;
 
