@@ -22,6 +22,12 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.StoreRequ
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -36,7 +42,8 @@ public class StoreController {
      * GET ALL STORE
      * ---------------------
      */
-/*     @Operation(
+    
+    @Operation(
     summary = "Get all Stores", 
     description = "Retrieve a paginated list of all Stores", 
     parameters = {
@@ -64,9 +71,8 @@ public class StoreController {
         @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
         @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
-    }) */   //UNCOMMENT THIS PART OF THE CODE WHEN YOU MAKE THE CONTROLLER
+    }) 
 
-     //insert here your code
     @GetMapping
     public ResponseEntity<Page<StoreResponse>> getAll(
             @PageableDefault(page = 0, size = 10, sort = "status") Pageable pageable) {
@@ -75,17 +81,18 @@ public class StoreController {
     }
 
     /*--------------------
-    * GET BY ID
-    * -------------------
-    */
-/*     @Operation(summary = "Get Store by ID", description = "Retrieves a Store by its unique ID.")
-    @ApiResponses(value = {
+     * GET BY ID
+     * -------------------
+     */
+
+    @Operation(summary = "Get Store by ID", description = "Retrieves a Store by its unique ID.")
+        @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
-    }) */   //UNCOMMENT THIS PART OF THE CODE WHEN YOU MAKE THE CONTROLLER
+    })
     
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<StoreResponse>> getById(@PathVariable Integer id) {
@@ -96,14 +103,15 @@ public class StoreController {
      * CREATE STORE
      * -------------------
      */
-/*     @Operation(summary = "creates a new Store", description = "create a new Stotr by entering the required data")
-    @ApiResponses(value = {
+
+    @Operation(summary = "creates a new Store", description = "create a new Stotr by entering the required data")
+        @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
-    }) */   //UNCOMMENT THIS PART OF THE CODE WHEN YOU MAKE THE CONTROLLER
+    })
 
     @PostMapping
     public ResponseEntity<StoreResponse> create(
@@ -115,14 +123,15 @@ public class StoreController {
      * UPDATE STORE
      * ---------------------
      */
-/*     @Operation(summary = "update  Role by ID", description = "updates a previously created role and the ID and the new modified parameters must be sent through the Path, value cannot be less than 1")
-     @ApiResponses(value = {
+
+    @Operation(summary = "update  Role by ID", description = "updates a previously created role and the ID and the new modified parameters must be sent through the Path, value cannot be less than 1")
+        @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
-    }) */   //UNCOMMENT THIS PART OF THE CODE WHEN YOU MAKE THE CONTROLLER
+    })
 
         @PutMapping(path = "/{id}")
         public ResponseEntity<StoreResponse> update(
@@ -138,16 +147,14 @@ public class StoreController {
      * ---------------------
      */
 
-    /*      @Operation(summary = "Disable Store by ID", description = "Disables a previously created Store identified by its ID")
+    @Operation(summary = "Disable Store by ID", description = "Disables a previously created Store identified by its ID")
         @ApiResponses(value = {
                 @ApiResponse(responseCode = "200", description = "OK"),
                 @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
                 @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
                 @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
                 @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
-        }) */   //UNCOMMENT THIS PART OF THE CODE WHEN YOU MAKE THE CONTROLLER
-        
-     //insert here your code
+        })
     
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
