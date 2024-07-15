@@ -11,7 +11,9 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.StoreRequ
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.StoreRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Store;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.User;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.StoreRepository;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.UserRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreUpdateMapper;
@@ -19,6 +21,7 @@ import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreAlreadyInactiveException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNameAlreadyExistsException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNotFoundException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +33,9 @@ public class StoreService implements IStoreService {
 
     @Autowired
     private final StoreRepository storeRepository;
+    
+    @Autowired
+    private final UserRepository userRepository;
 
     @Autowired
     private final StoreMapper storeMapper;
@@ -39,15 +45,25 @@ public class StoreService implements IStoreService {
 
     @Override
     public StoreResponse create(StoreRequest request) {
+      
+        String userId = request.getUser_id();
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isEmpty()) {
+            throw new UserNotFoundException("User with ID " + userId + " does not exist");
+        }
+
+        
         String name = request.getName();
         Optional<Store> existingStoreName = this.storeRepository.findByName(name);
         if (existingStoreName.isPresent()) {
             throw new StoreNameAlreadyExistsException("Store with name " + name + " already exists");
-        } else {
-            Store store = this.storeMapper.toEntity(request);
-            return this.storeMapper.toResponse(this.storeRepository.save(store));
         }
+
+        
+        Store store = this.storeMapper.toEntity(request);
+        return this.storeMapper.toResponse(this.storeRepository.save(store));
     }
+
 
     /*----------------------------
     * GET ALL

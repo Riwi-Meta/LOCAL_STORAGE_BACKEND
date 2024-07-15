@@ -27,7 +27,7 @@ public class StoreRequest {
     @NotBlank(message = "The User_id is required")
     private String user_id;
 
-    @Schema(description = "Store status", example = "ACTIVE")
+    @Schema(description = "Store status", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE", "BLOCKED"})
     @NotNull(message = "Status is required.") 
     private StatusType status;
     
