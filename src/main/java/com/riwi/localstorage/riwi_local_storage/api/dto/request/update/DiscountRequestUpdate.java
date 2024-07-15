@@ -1,38 +1,37 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.request.update;
 
-import java.time.LocalDate;
-
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountType;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+import java.time.LocalDate;
+
 @Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class DiscountRequestUpdate {
 
-    @NotNull
-    private String id;
-    
-    @NotNull
-    private DiscountType type;
+  private Boolean isActive;
 
-    @NotNull
-    @Min(0)
-    private Double amount;
+  private DiscountType type;
 
-    @NotNull
-    private LocalDate startDate;
+  @Positive(message = "The amount must be greater than 0")
+  private double amount;
 
-    @NotNull
-    private LocalDate endDate;
+  @FutureOrPresent(message = "The date cant be in the past")
+  private LocalDate startDate;
 
-    @NotNull
-    private Boolean isActive;
+  @Future(message = "The end date cant be in the past")
+  private LocalDate endDate;
 
-    @NotBlank
-    private String code;
+  @NotBlank(message = "The code cant be empty")
+  private String code;
 }
