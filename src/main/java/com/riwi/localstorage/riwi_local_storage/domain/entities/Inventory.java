@@ -41,8 +41,9 @@ public class Inventory {
     @Column(name = "expiration_date", nullable = false)
     private Date expirationDate;
 
-    @OneToMany(mappedBy = "inventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Product> product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
