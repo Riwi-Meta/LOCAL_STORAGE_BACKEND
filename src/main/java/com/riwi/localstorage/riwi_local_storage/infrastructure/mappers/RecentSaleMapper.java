@@ -21,18 +21,18 @@ public interface RecentSaleMapper {
 
     default Double mapQuantity(Product product) {
         if (product != null && product.getInventory() != null &&
-            product.getInventory().getSaleDetails() != null &&
-            !product.getInventory().getSaleDetails().isEmpty()) {
-            return product.getInventory().getSaleDetails().get(0).getQuantity();
+            product.getInventory().get(0).getSaleDetails() != null &&
+            !product.getInventory().get(0).getSaleDetails().isEmpty()) {
+            return product.getInventory().get(0).getSaleDetails().get(0).getQuantity();
         }
         return null; // or handle appropriately if data is not available
     }
 
     default Date mapDate(Product product) {
         if (product != null && product.getInventory() != null &&
-            product.getInventory().getSaleDetails() != null &&
-            !product.getInventory().getSaleDetails().isEmpty()) {
-            SaleDetail firstSaleDetail = product.getInventory().getSaleDetails().get(0);
+            product.getInventory().get(0).getSaleDetails() != null &&
+            !product.getInventory().get(0).getSaleDetails().isEmpty()) {
+            SaleDetail firstSaleDetail = product.getInventory().get(0).getSaleDetails().get(0);
             if (firstSaleDetail.getSale() != null) {
                 return firstSaleDetail.getSale().getDate();
             }
@@ -42,18 +42,18 @@ public interface RecentSaleMapper {
 
     default Double mapUnitPrice(Product product) {
         if (product != null && product.getInventory() != null &&
-            product.getInventory().getSaleDetails() != null &&
-            !product.getInventory().getSaleDetails().isEmpty()) {
-            return product.getInventory().getSaleDetails().get(0).getUnitPrice();
+            product.getInventory().get(0).getSaleDetails() != null &&
+            !product.getInventory().get(0).getSaleDetails().isEmpty()) {
+            return product.getInventory().get(0).getSaleDetails().get(0).getUnitPrice();
         }
         return null; // or handle appropriately if data is not available
     }
 
     default Double mapTotal(Product product) {
         if (product != null && product.getInventory() != null &&
-            product.getInventory().getSaleDetails() != null &&
-            !product.getInventory().getSaleDetails().isEmpty()) {
-            return product.getInventory().getSaleDetails().get(0).getTotal();
+            product.getInventory().get(0).getSaleDetails() != null &&
+            !product.getInventory().get(0).getSaleDetails().isEmpty()) {
+            return product.getInventory().get(0).getSaleDetails().get(0).getTotal();
         }
         return null; // or handle appropriately if data is not available
     }
