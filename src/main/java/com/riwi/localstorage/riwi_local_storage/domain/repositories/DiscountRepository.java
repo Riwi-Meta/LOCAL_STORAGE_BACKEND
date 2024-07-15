@@ -10,4 +10,6 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Discount;
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, String> {
   Page<Discount> findAllByIsActive(boolean isActive, Pageable pageable);
+
+  Discount findByCode(String code);
 }
