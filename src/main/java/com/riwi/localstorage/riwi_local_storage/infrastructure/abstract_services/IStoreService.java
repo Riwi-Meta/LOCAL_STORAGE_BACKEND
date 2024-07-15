@@ -15,9 +15,9 @@ import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services
 @Service
 public interface IStoreService extends 
     CreateService<StoreRequest,StoreResponse>,
-    DeleteService<String>,                                //this is disable status
+    DeleteService<Integer>,                                //this is disable status
     ReadAllService<StoreResponse>,
-    ReadService<StoreResponse,String>,
-    UpdateService<StoreRequestUpdate,StoreResponse, String> {
+    ReadService<StoreResponse,Integer>,
+    UpdateService<StoreRequestUpdate,StoreResponse, Integer> {
     
 }
