@@ -18,6 +18,6 @@ public interface IStoreService extends
     DeleteService<Integer>,                                //this is disable status
     ReadAllService<StoreResponse>,
     ReadService<StoreResponse,Integer>,
-    UpdateService<StoreRequestUpdate,StoreResponse, String> {
+    UpdateService<StoreRequestUpdate,StoreResponse, Integer> {
     
 }

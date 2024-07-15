@@ -70,9 +70,24 @@ public class StoreService implements IStoreService {
     }
 
     @Override
-    public StoreResponse update(String id, StoreRequestUpdate request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public StoreResponse update(Integer id, StoreRequestUpdate request) {
+        String updateStoreName = request.getName();
+
+        Optional<Store> existingStoreName = this.storeRepository.findByName(updateStoreName);
+
+        if (existingStoreName.isPresent()) {
+            throw new StoreNameAlreadyExistsException("Store with name "+updateStoreName+ " already exists");
+        }else{
+            Store store = this.find(id);
+
+            Store storeUpdate = this.updateMapper.toEntity(request);
+
+            storeUpdate.setId(id);
+            storeUpdate.setStatus(store.getStatus());
+            storeUpdate.setUser(store.getUser());
+
+            return this.updateMapper.toResponse(this.storeRepository.save(storeUpdate));
+        }
     }
 
     /*----------------------

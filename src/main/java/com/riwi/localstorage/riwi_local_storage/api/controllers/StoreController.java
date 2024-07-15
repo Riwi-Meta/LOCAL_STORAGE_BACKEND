@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.StoreRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.StoreRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
 
@@ -68,7 +70,14 @@ public class StoreController {
      * ---------------------
      */
 
-    // insert here your code
+        @PutMapping(path = "/{id}")
+        public ResponseEntity<StoreResponse> update(
+            @PathVariable Integer id,
+            @Validated @RequestBody StoreRequestUpdate request
+        ){
+            return ResponseEntity.ok(this.service.update(id, request));
+        }
+
 
     /*----------------------
      * DELETE STORE (DISABLE STORE - SOFT DELETE)
