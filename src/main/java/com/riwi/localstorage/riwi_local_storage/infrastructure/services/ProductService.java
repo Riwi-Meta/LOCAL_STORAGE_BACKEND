@@ -1,6 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.BestSellingResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
@@ -86,5 +87,23 @@ public class ProductService implements IProductService{
         return products.stream()
                 .map(recentSaleMapper::toRecentSaleResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<BestSellingResponse> findBestSellingProductsByBranch(String branchId) {
+        List<Object[]> request = this.productRepository.findBestSellingProductsByBranch(branchId);
+        List<BestSellingResponse> response = new ArrayList<>(request.size());
+        for (Object[] row : request) {
+            BestSellingResponse bestSellingResponse = new BestSellingResponse();
+            bestSellingResponse.setId(row[0].toString());
+            bestSellingResponse.setName(row[1].toString());
+            bestSellingResponse.setDescription(row[2].toString());
+            bestSellingResponse.setBarcode(row[3].toString());
+            bestSellingResponse.setSellingPrice((Double) row[4]);
+            bestSellingResponse.setCategoryId(row[5].toString());
+            bestSellingResponse.setTotalQuantity((Double) row[6]);
+            
+            response.add(bestSellingResponse);
+        }
+        return  response;
     }
 }
