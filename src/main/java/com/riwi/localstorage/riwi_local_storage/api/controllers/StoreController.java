@@ -39,7 +39,7 @@ public class StoreController {
     private final IStoreService service;
 
     /*----------------------
-     * GET ALL STORE
+     * GET ALL STORES
      * ---------------------
      */
     
@@ -104,7 +104,7 @@ public class StoreController {
      * -------------------
      */
 
-    @Operation(summary = "creates a new Store", description = "create a new Stotr by entering the required data")
+    @Operation(summary = "creates a new Store", description = "create a new Store by entering the required data")
         @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),

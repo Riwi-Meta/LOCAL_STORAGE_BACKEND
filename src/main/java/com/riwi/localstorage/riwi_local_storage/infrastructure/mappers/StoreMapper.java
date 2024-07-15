@@ -9,7 +9,6 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.Mappings;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.StoreRequest;
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.StoreRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Store;
 
