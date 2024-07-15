@@ -10,12 +10,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.DiscountRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.DiscountResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IDiscountService;
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountSortCriteria;
@@ -24,6 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -66,5 +70,15 @@ public class DiscountController {
   @GetMapping("/{id}")
   public ResponseEntity<Optional<DiscountResponse>> getDiscount(@PathVariable String id) {
     return ResponseEntity.ok(this.iDiscountService.getById(id));
+  }
+
+  @Operation(summary = "Update an existing discount")
+  @ApiResponse(responseCode = "404", description = "Discount not found", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)) })
+  @ApiResponse(responseCode = "400", description = "Invalid data", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)) })
+  @PutMapping("/{id}")
+  public ResponseEntity<DiscountResponse> updateDiscount(@PathVariable String id, @Valid @RequestBody DiscountRequestUpdate request) {
+    return ResponseEntity.ok(this.iDiscountService.update(id, request));
   }
 }

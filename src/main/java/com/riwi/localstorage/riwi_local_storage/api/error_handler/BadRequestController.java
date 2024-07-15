@@ -13,22 +13,21 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.errors.BaseErrorResponse
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ListErrorsResponse;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.InvalidDataException;
 
 @RestControllerAdvice
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController {
 
-    public ErrorResponse idNotFoundException(IdNotFoundException exception){
+    public ErrorResponse idNotFoundException(IdNotFoundException exception) {
         ErrorResponse errorResponse = new ErrorResponse();
-        
+
         errorResponse.setMessage(exception.getMessage());
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.name());
         errorResponse.setCode(HttpStatus.BAD_REQUEST.value());
-        
+
         return errorResponse;
     }
-
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseErrorResponse handleBadRequest(
@@ -44,6 +43,25 @@ public class BadRequestController {
         errorsResponse.setStatus(HttpStatus.BAD_REQUEST.name());
         errorsResponse.setErrors(errors);
         return errorsResponse;
+    }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    public ErrorResponse handleIdNotFoundException(IdNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(exception.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.name());
+        errorResponse.setCode(HttpStatus.BAD_REQUEST.value());
+        return errorResponse;
+    }
+
+
+    @ExceptionHandler(InvalidDataException.class)
+    public ErrorResponse handleInvalidDataException(InvalidDataException exception) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(exception.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.name());
+        errorResponse.setCode(HttpStatus.BAD_REQUEST.value());
+        return errorResponse;
     }
 
 }

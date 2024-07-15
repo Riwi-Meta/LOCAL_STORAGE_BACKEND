@@ -8,12 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.DiscountRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.DiscountRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.DiscountResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Discount;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.DiscountRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IDiscountService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.DiscountMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.InvalidDataException;
 
 import lombok.AllArgsConstructor;
 
@@ -57,9 +59,31 @@ public class DiscountService implements IDiscountService {
   }
 
   @Override
-  public DiscountResponse update(String id, DiscountRequest request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  public DiscountResponse update(String id, DiscountRequestUpdate request) {
+    Discount discount = findDiscount(id);
+    validateDiscountRequest(request);
+
+    discount.setType(request.getType());
+    discount.setAmount(request.getAmount());
+    discount.setStartDate(request.getStartDate());
+    discount.setEndDate(request.getEndDate());
+    discount.setIsActive(request.getIsActive());
+    discount.setCode(request.getCode());
+
+    Discount updatedDiscount = discountRepository.save(discount);
+    return discountMapper.discountToDiscountResponse(updatedDiscount);
+  }
+
+  private void validateDiscountRequest(DiscountRequestUpdate request) {
+    if (request.getAmount() <= 0) {
+      throw new InvalidDataException("Amount must be greater than 0");
+    }
+    if (request.getStartDate().isAfter(request.getEndDate())) {
+      throw new InvalidDataException("Start date must be before end date");
+    }
+    if (discountRepository.existsByCodeAndIdNot(request.getCode(), request.getId())) {
+      throw new InvalidDataException("Discount code already exists");
+    }
   }
 
   @Override
