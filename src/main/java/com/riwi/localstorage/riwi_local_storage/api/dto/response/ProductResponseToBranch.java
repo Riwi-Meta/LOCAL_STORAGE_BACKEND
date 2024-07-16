@@ -19,6 +19,8 @@ public class ProductResponseToBranch {
 
     private Double sellingPrice;
 
+    private Double quantity;
+
     private BranchResponse branch;
     
 }

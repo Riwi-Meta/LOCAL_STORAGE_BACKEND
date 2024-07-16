@@ -22,7 +22,10 @@ public interface IProductService extends
                 DeleteService<String>{      
                     
             Page<ProductResponse> findByCriteria(String category, PageRequest pageable);
-            ProductResponseToBranch getAllAndBranch(String id);
             List<RecentSaleResponse> findRecentlySoldProducts(String branchId);
             List<BestSellingResponse> findBestSellingProductsByBranch(String branchId);
+
+
+
+            ProductResponseToBranch getAllAndBranchByStoreId(String id, String storeId);
 }
