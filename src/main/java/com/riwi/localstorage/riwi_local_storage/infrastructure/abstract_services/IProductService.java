@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.BestSellingResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
@@ -23,4 +24,5 @@ public interface IProductService extends
             Page<ProductResponse> findByCriteria(String category, PageRequest pageable);
             ProductResponseToBranch getAllAndBranch(String id);
             List<RecentSaleResponse> findRecentlySoldProducts(String branchId);
+            List<BestSellingResponse> findBestSellingProductsByBranch(String branchId);
 }

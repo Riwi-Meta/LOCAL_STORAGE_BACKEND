@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.BestSellingResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
@@ -75,5 +76,10 @@ public class ProductController {
     @GetMapping(path = "/recentSoldProducts/{branch_id}")
     public ResponseEntity<List<RecentSaleResponse>> findRecentlySoldProducts(@PathVariable String branch_id) {
         return ResponseEntity.ok(this.productService.findRecentlySoldProducts(branch_id));
+    }
+
+    @GetMapping(path = "/bestSelling/{branch_id}")
+    public ResponseEntity<List<BestSellingResponse>> findBestSellingProductsByBranch(@PathVariable String branch_id) {
+        return ResponseEntity.ok(this.productService.findBestSellingProductsByBranch(branch_id));
     }
 }
