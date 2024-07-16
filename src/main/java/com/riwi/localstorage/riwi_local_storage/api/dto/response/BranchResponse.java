@@ -1,11 +1,13 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BranchResponse {
@@ -19,6 +21,4 @@ public class BranchResponse {
     private String city;
 
     private String phone;
-
-    private String storeId;
 }
