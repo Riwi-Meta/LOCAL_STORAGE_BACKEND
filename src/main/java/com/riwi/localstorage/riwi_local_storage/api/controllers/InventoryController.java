@@ -2,6 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.api.controllers;
 
 import java.util.Optional;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,9 +25,9 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping(path = "inventaries")
 @AllArgsConstructor
-public class InventaryController {
+public class InventoryController {
     @Autowired
-    private final IInventaryService service;
+    private final IInventoryService service;
 
     /*----------------------
      * GET ALL INVENTARIES
@@ -34,7 +35,7 @@ public class InventaryController {
      */
 
      @GetMapping
-     public ResponseEntity<Page<InventaryResponse>> getAll(@PageableDefault(page = 0, size = 10, sort = "ACTIVE"/* Do the configuration to the sort in the swagger or the code will not function */
+     public ResponseEntity<Page<InventoryResponse>> getAll(@PageableDefault(page = 1, size = 10
      ) Pageable pageable){
         return ResponseEntity.ok(service.getAll(pageable));
      }
@@ -45,7 +46,7 @@ public class InventaryController {
     */
 
      @GetMapping(path = "/{id}")
-     public ResponseEntity<Optional<InventaryResponse>> getById(@PathVariable String id){
+     public ResponseEntity<Optional<InventoryResponse>> getById(@PathVariable String id){
         return ResponseEntity.ok(service.getById(id));
      }
 
@@ -54,20 +55,20 @@ public class InventaryController {
      * -------------------
      */
     @PostMapping
-    public ResponseEntity<InventaryResponse> create(
+    public ResponseEntity<InventoryResponse> create(
             @Validated @RequestBody InventaryRequest request) {
         return ResponseEntity.ok(this.service.create(request));
     }
 
     /*----------------------
-     * UPDATE INVENTARY
+     * UPDATE INVENTORY
      * ---------------------
      */
 
     // insert here your code
 
     /*----------------------
-     * DELETE INVENTARY (DISABLE ROLE - SOFT DELETE)
+     * DELETE INVENTORY (DISABLE ROLE - SOFT DELETE)
      * ---------------------
      */
 

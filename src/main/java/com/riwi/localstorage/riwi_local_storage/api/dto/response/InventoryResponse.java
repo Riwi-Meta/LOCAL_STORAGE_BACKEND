@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventaryResponse {
+public class InventoryResponse {
     
     
     private String id;

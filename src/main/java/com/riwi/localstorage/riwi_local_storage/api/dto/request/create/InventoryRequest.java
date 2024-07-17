@@ -15,11 +15,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventaryRequest {
+public class InventoryRequest {
 
 
-    @NotBlank(message = "the id of the product is required") 
-    private Product product;
+    
 
     @NotBlank(message = "the quantity of the product is required") 
     private Double quantity;
@@ -32,5 +31,7 @@ public class InventaryRequest {
 
     @NotBlank(message = "the id of the branch is required") 
     private Branch branch;
+    @NotBlank(message = "the id of the product is required") 
+    private Product product;
 
 }

@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventaryRequestUpdate {
+public class InventoryRequestUpdate {
     
     @Schema(description = "Id of the store owns the inventory",example = "Juanita store") 
     @NotBlank(message = "the id of the store is required") 
