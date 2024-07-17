@@ -37,9 +37,9 @@ public class InventaryService implements IInventaryService {
 
     @Override
     public InventaryResponse create(InventaryRequest request) {
-        Date fechaActual = new Date();
+        Date today = new Date();
 
-        if (request.getExpirationDate().before(fechaActual)) {
+        if (request.getExpirationDate().before(today)) {
             throw new InventoryExpirationDatePassed("The expiration date of the item in the inventory have passed");
         } else {
             Inventory inventory = this.createMapper.toEntity(request);
@@ -71,5 +71,5 @@ public class InventaryService implements IInventaryService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
+
 }
