@@ -29,9 +29,10 @@ public class InventoryRequest {
     @NotBlank(message = "the expiration date of the product is required") 
     private Date expirationDate;
 
-    @NotBlank(message = "the id of the branch is required") 
-    private Branch branch;
-    @NotBlank(message = "the id of the product is required") 
-    private Product product;
+    @NotBlank(message = "The ID of the branch is required")
+    private String branchId;
+
+    @NotBlank(message = "The ID of the product is required")
+    private String productId;
 
 }

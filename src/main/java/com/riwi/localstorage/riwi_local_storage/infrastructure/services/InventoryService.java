@@ -3,7 +3,12 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 import java.util.Date;
 import java.util.Optional;
 
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,42 +33,54 @@ import lombok.AllArgsConstructor;
 public class InventoryService implements IInventoryService {
     
     @Autowired
-    private InventoryMapper inventoryMapper;
+    private final InventoryMapper inventoryMapper;
 
     @Autowired
-    private InventoryCreateMapper createMapper;
+    private final InventoryCreateMapper createMapper;
 
     @Autowired
-    private InventoryUpdateMapper updateMapper;
-    
-    @Autowired
+    private final InventoryUpdateMapper updateMapper;
+        @Autowired
     private InventoryDisableMapper disableMapper;
-    
+        @Autowired
+    private final InventoryRepository inventoryRepository;
+
+        @Autowired
+    private final ProductRepository productRepository;
     @Autowired
-    private InventoryRepository repository;
+    private final BranchRepository branchRepository;
 
     @Override
     public InventoryResponse create(InventoryRequest request) {
         Date today = new Date();
 
         if (request.getExpirationDate().before(today)) {
-            throw new InventoryExpirationDatePassed("The expiration date of the item in the inventory have passed");
-        } else {
-            Inventory inventory = this.createMapper.toEntity(request);
-
-            return this.createMapper.toResponse(inventory);
+            throw new InventoryExpirationDatePassed("The expiration date of the item in the inventory has passed");
         }
-    }
 
+
+        Product product = productRepository.findById(request.getProductId())
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + request.getProductId()));
+
+        Branch branch = branchRepository.findById(request.getBranchId())
+                .orElseThrow(() -> new EntityNotFoundException("Branch not found with id: " + request.getBranchId()));
+
+        Inventory inventory = createMapper.toEntity(request);
+        inventory.setProduct(product);
+        inventory.setBranch(branch);
+
+        Inventory savedInventory = inventoryRepository.save(inventory);
+
+        return createMapper.toResponse(savedInventory);
+    }
     @Override
-    public void delete(String id) {
+    public InventoryResponse update(String id, InventoryRequestUpdate request) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-
     @Override
     public Page<InventoryResponse> getAll(Pageable pageable) {
-        return this.repository.findAll(pageable).map(inventory -> this.inventoryMapper.toResponse(inventory));
+        return this.inventoryRepository.findAll(pageable).map(this.inventoryMapper::toResponse);
     }
 
     @Override
@@ -71,14 +88,8 @@ public class InventoryService implements IInventoryService {
         return Optional.ofNullable(this.inventoryMapper.toResponse(this.find(id)));
     }
 
-    @Override
-    public InventoryResponse update(String id, InventoryRequestUpdate request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
-
     private Inventory find(String id){
-        return this.repository.findById(id).orElseThrow(()->new IdNotFoundException("Inventory", id));
+        return this.inventoryRepository.findById(id).orElseThrow(()->new IdNotFoundException("Inventory", id));
     }
 
 }

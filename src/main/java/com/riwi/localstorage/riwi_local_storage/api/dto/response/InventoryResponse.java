@@ -24,8 +24,8 @@ public class InventoryResponse {
     private Double quantity;
     private Date lastUpdateDate;
     private Date expirationDate;
-    private List<SaleDetail> saleDetails;
 
+    private List<SaleDetail> saleDetails;
     private List<SupplierOrder> supplierOrders;
     
 }

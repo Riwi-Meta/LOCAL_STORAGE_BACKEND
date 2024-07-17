@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.InventaryRequest;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventaryResponse;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventaryService;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.InventoryRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
 
 import lombok.AllArgsConstructor;
 
@@ -56,7 +56,7 @@ public class InventoryController {
      */
     @PostMapping
     public ResponseEntity<InventoryResponse> create(
-            @Validated @RequestBody InventaryRequest request) {
+            @Validated @RequestBody InventoryRequest request) {
         return ResponseEntity.ok(this.service.create(request));
     }
 

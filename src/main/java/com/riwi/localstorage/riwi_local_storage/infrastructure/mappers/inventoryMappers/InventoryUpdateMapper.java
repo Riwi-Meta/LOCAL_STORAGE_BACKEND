@@ -8,8 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Mappings;
 
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.InventaryRequestUpdate;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventaryResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.InventoryRequestUpdate;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
@@ -22,12 +22,12 @@ public interface InventoryUpdateMapper {
         @Mapping(target = "saleDetails",ignore = true),
         @Mapping(target = "supplierOrders",ignore = true),
     })
-    Inventory toEntity(InventaryRequestUpdate request);
+    Inventory toEntity(InventoryRequestUpdate request);
 
     @InheritConfiguration
-    InventaryResponse toResponse(Inventory entity);
+    InventoryResponse toResponse(Inventory entity);
 
-    List<Inventory> toEntityList(List<InventaryRequestUpdate> request);
+    List<Inventory> toEntityList(List<InventoryRequestUpdate> request);
 
-    List<InventaryResponse> toResponseList(List<Inventory> entity);
+    List<InventoryResponse> toResponseList(List<Inventory> entity);
 }
