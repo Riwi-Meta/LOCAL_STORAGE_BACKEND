@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.InventoryRequest;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
 
 import lombok.AllArgsConstructor;

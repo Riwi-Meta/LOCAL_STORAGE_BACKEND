@@ -2,8 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.api.dto.request.create;
 
 import java.util.Date;
 
-import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
-import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
+
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

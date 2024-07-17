@@ -20,9 +20,7 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryRespon
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.InventoryRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryCreateMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryDisableMapper;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.InventoryExpirationDatePassed;
 
@@ -37,15 +35,11 @@ public class InventoryService implements IInventoryService {
 
     @Autowired
     private final InventoryCreateMapper createMapper;
-
+       
     @Autowired
-    private final InventoryUpdateMapper updateMapper;
-        @Autowired
-    private InventoryDisableMapper disableMapper;
-        @Autowired
     private final InventoryRepository inventoryRepository;
 
-        @Autowired
+    @Autowired
     private final ProductRepository productRepository;
     @Autowired
     private final BranchRepository branchRepository;
@@ -78,6 +72,8 @@ public class InventoryService implements IInventoryService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
+    
     @Override
     public Page<InventoryResponse> getAll(Pageable pageable) {
         return this.inventoryRepository.findAll(pageable).map(this.inventoryMapper::toResponse);
