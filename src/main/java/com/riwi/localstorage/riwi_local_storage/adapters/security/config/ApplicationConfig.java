@@ -10,12 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.riwi.localstorage.riwi_local_storage.adapters.security.jwt.UserDetailsServiceImpl;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
+
+    private final UserRepository userRepository;
     
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
@@ -25,12 +28,13 @@ public class ApplicationConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(new UserDetailsServiceImpl());
+        authenticationProvider.setUserDetailsService(new UserDetailsServiceImpl(userRepository));
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
 
-    private PasswordEncoder passwordEncoder(){
+    @Bean
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 

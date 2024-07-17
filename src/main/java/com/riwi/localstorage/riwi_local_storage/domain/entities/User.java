@@ -1,6 +1,11 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +30,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
@@ -58,4 +63,14 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Sale> sales;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.getName()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getEmail();
+    }
 }
