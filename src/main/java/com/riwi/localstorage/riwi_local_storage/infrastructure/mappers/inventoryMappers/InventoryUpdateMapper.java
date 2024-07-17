@@ -1,4 +1,4 @@
-package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
+package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventaryRespon
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface InventaryUpdateMapper {
+public interface InventoryUpdateMapper {
 
     @Mappings({
         @Mapping(target = "id",ignore = true),
