@@ -31,7 +31,8 @@ public class InventaryController {
      */
 
      @GetMapping
-     public ResponseEntity<Page<InventaryResponse>> getAll(@PageableDefault(page = 0, size = 10, sort = "status") Pageable pageable){
+     public ResponseEntity<Page<InventaryResponse>> getAll(@PageableDefault(page = 0, size = 10, sort = "ACTIVE"/* Do the configuration to the sort in the swagger or the code will not function */
+     ) Pageable pageable){
         return ResponseEntity.ok(service.getAll(pageable));
      }
 
