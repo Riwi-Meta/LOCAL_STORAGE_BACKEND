@@ -59,7 +59,7 @@ public class InventaryService implements IInventaryService {
 
     @Override
     public Optional<InventaryResponse> getById(String id) {
-        return Optional.of(this.inventoryMapper.toResponse(this.find(id)));
+        return Optional.ofNullable(this.inventoryMapper.toResponse(this.find(id)));
     }
 
     @Override
