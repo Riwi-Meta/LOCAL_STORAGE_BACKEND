@@ -1,5 +1,13 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.response;
 
+import java.util.Date;
+import java.util.List;
+
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.SaleDetail;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Supplier;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.SupplierOrder;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +21,13 @@ public class InventaryResponse {
     
     
     private String id;
-    //add missing parameters
+    private Product product;
+    private Double quantity;
+    private Date lastUpdateDate;
+    private Supplier supplierOrderId;
+    private Date expirationDate;
+    private List<SaleDetail> saleDetails;
+
+    private List<SupplierOrder> supplierOrders;
     
 }
