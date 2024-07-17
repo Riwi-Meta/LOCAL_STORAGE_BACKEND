@@ -31,8 +31,9 @@ public class DiscountService implements IDiscountService {
 
   @Override
   public DiscountResponse create(DiscountRequest request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    Discount discount = discountMapper.discountRequestToDiscount(request);
+    discount.setIsActive(true);
+    return discountMapper.discountToDiscountResponse(discountRepository.save(discount));
   }
 
   @Override

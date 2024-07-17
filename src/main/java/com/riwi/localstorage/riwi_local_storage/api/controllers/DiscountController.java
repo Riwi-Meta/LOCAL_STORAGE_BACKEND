@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.DiscountRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.DiscountRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.EntityEnabledRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.DiscountResponse;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IDiscountService;
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountSortCriteria;
 
@@ -81,10 +85,10 @@ public class DiscountController {
   @ApiResponse(responseCode = "400", description = "Invalid data", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)) })
   @PutMapping("/{id}")
-  public ResponseEntity<DiscountResponse> updateDiscount(@PathVariable String id, @Valid @RequestBody DiscountRequestUpdate request) {
+  public ResponseEntity<DiscountResponse> updateDiscount(@PathVariable String id,
+      @Valid @RequestBody DiscountRequestUpdate request) {
     return ResponseEntity.ok(this.iDiscountService.update(id, request));
   }
-
 
   @Operation(summary = "This method allows you to 'delete' a discount for a id specific")
   @ApiResponse(responseCode = "400", description = "When the id it's not valid", content = {
@@ -96,6 +100,15 @@ public class DiscountController {
     iDiscountService.updateDiscountStatus(id, discountEnabledRequest.isEnabled());
 
     return ResponseEntity.ok().build();
+  }
+
+  @Operation(summary = "This method allows you to 'create' a discount")
+  @ApiResponse(responseCode = "400", description = "\"When the request it's not valid", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+  })
+  @PostMapping(path = "/add")
+  public ResponseEntity<DiscountResponse> create(@Validated @RequestBody DiscountRequest request) {
+    return ResponseEntity.ok(this.iDiscountService.create(request));
   }
 
 }
