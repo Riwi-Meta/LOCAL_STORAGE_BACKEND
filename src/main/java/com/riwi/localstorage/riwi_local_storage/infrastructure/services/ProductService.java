@@ -4,6 +4,12 @@ import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.InventoryRepository;
+import com.riwi.localstorage.riwi_local_storage.util.exeptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -33,6 +39,10 @@ public class ProductService implements IProductService{
     private final ProductMapper productMapper;
 
     private final RecentSaleMapper recentSaleMapper;
+
+    private final BranchRepository branchRepository;
+
+    private final InventoryRepository inventoryRepository;
     
     @Override
     public ProductResponse create(ProductRequest request) {
@@ -109,4 +119,19 @@ public class ProductService implements IProductService{
         }
         return  response;
     }
+
+    @Override
+    public ProductResponseToBranch productUpdateLocation(String id, String branchId, ProductUpdateLocationRequest request) {
+
+        Product product = find(id);
+
+
+
+
+        productMapper.productToUpdateLocation(request, product);
+        Product updatedProduct = this.productRepository.save(product);
+
+        return productMapper.productToProductResponseToBranch(updatedProduct);
+    }
+
 }

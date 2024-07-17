@@ -3,6 +3,7 @@ package com.riwi.localstorage.riwi_local_storage.api.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -85,4 +86,13 @@ public class ProductController {
     public ResponseEntity<List<BestSellingResponse>> findBestSellingProductsByBranch(@PathVariable String branch_id) {
         return ResponseEntity.ok(this.productService.findBestSellingProductsByBranch(branch_id));
     }
+
+    @PutMapping(path = "/{id}/{branchId}")
+    public ResponseEntity<ProductResponseToBranch> updateLocation(
+            @Validated @RequestBody ProductUpdateLocationRequest request,
+            @PathVariable String id,
+            @PathVariable String branchId) {
+        return ResponseEntity.ok(this.productService.productUpdateLocation(id, branchId, request));
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -37,6 +38,9 @@ public interface ProductMapper {
     @Mapping(target = "inventory", ignore = true)
     @Mapping(target = "category.id", source = "categoryId")
     void productToUpdate(ProductRequest request, @MappingTarget Product product);
+
+
+    void productToUpdateLocation(ProductUpdateLocationRequest request, @MappingTarget Product product);
     
     @Mapping(target = "name", expression = "java(mapBranchName(product))")
     @Mapping(target = "branch", expression = "java(mapBranch(product))")
