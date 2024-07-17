@@ -16,12 +16,13 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 public interface InventaryDisableMapper {
     
     @Mappings({
-        @Mapping(target = "id",ignore = true),
         @Mapping(target = "saleDetails",ignore = true),
         @Mapping(target = "supplierOrders",ignore = true),
         @Mapping(target = "product",ignore = true),
-        @Mapping(target = "branch",ignore = true)
-
+        @Mapping(target = "branch",ignore = true),
+        @Mapping(target = "quantity",ignore = true),
+        @Mapping(target = "lastUpdateDate",ignore = true),
+        @Mapping(target = "expirationDate",ignore = true),
 
     })
     Inventory toEntity(InventaryRequest request);

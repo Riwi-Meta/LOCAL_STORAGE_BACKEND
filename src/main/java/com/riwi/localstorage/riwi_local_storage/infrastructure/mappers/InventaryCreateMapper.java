@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.Mappings;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.InventaryRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventaryResponse;
@@ -14,14 +12,7 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface InventaryCreateMapper {
-    @Mappings({
-        @Mapping(target = "id",ignore = true),
-        @Mapping(target = "saleDetails",ignore = true),
-        @Mapping(target = "supplierOrders",ignore = true),
-        @Mapping(target = "product",ignore = true),
-        @Mapping(target = "branch",ignore = true)
 
-    })
     Inventory toEntity(InventaryRequest request);
 
     @InheritConfiguration

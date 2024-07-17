@@ -17,11 +17,10 @@ public interface InventaryUpdateMapper {
 
     @Mappings({
         @Mapping(target = "id",ignore = true),
+        @Mapping(target = "product",ignore = true),
+        @Mapping(target = "branch",ignore = true),
         @Mapping(target = "saleDetails",ignore = true),
         @Mapping(target = "supplierOrders",ignore = true),
-        @Mapping(target = "product",ignore = true),
-        @Mapping(target = "branch",ignore = true)
-
     })
     Inventory toEntity(InventaryRequestUpdate request);
 
