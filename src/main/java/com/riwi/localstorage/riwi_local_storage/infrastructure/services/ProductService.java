@@ -123,10 +123,6 @@ public class ProductService implements IProductService{
 
         Product product = find(id);
 
-        if (!product.isEnable()) {
-            throw new ResourceNotFoundException("Product");
-        }
-
         Inventory inventory = inventoryRepository.findById(inventoryId)
                 .orElseThrow();
 
