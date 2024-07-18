@@ -121,17 +121,20 @@ public class ProductService implements IProductService{
     public ProductResponseToBranch productUpdateLocation(
             String id, String branchId, String inventoryId, ProductUpdateLocationRequest request) {
 
+        Product product = find(id);
+
+        if (!product.isEnable()) {
+            throw new ResourceNotFoundException("Product");
+        }
 
         Inventory inventory = inventoryRepository.findById(inventoryId)
                 .orElseThrow();
 
-       Branch branch = branchRepository.findById(branchId).orElseThrow();
+        Branch branch = branchRepository.findById(branchId).orElseThrow();
 
         inventory.setBranch(branch);
-
         this.inventoryRepository.save(inventory);
 
-        Product product = find(id);
 
         return productMapper.mapProduct(product, inventory);
     }
