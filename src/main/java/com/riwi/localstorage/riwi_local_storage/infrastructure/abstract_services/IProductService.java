@@ -2,6 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 
 import java.util.List;
 
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -25,7 +26,8 @@ public interface IProductService extends
             List<RecentSaleResponse> findRecentlySoldProducts(String branchId);
             List<BestSellingResponse> findBestSellingProductsByBranch(String branchId);
 
-
-
             ProductResponseToBranch getAllAndBranchByStoreId(String id, String storeId);
+
+            ProductResponseToBranch productUpdateLocation(String id, String storeId, String inventoryId, ProductUpdateLocationRequest request);
+
 }
