@@ -1,6 +1,7 @@
 package com.riwi.localstorage.riwi_local_storage.infrastructure.mappers;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -40,7 +41,13 @@ public interface ProductMapper {
     void productToUpdate(ProductRequest request, @MappingTarget Product product);
 
 
-    void productToUpdateLocation(ProductUpdateLocationRequest request, @MappingTarget Product product);
+    @Mapping(target = "branch.id", source = "inventory.branch.id")
+    @Mapping(target = "branch.name", source = "inventory.branch.name")
+    @Mapping(target = "branch.email", source = "inventory.branch.email")
+    @Mapping(target = "branch.city", source = "inventory.branch.city")
+    @Mapping(target = "branch.phone", source = "inventory.branch.phone")
+    @Mapping(target = "inventoryId", source = "inventory.id")
+    ProductResponseToBranch productToUpdateProductResponseToBranch(Product product, Inventory inventory);
     
     @Mapping(target = "name", expression = "java(mapBranchName(product))")
     @Mapping(target = "branch", expression = "java(mapBranch(product))")
@@ -88,5 +95,14 @@ public interface ProductMapper {
             return product.getInventory().get(0).getQuantity();
         }
         return null; 
+    }
+
+    default ProductResponseToBranch mapProduct(Product product, Inventory inventory){
+        Inventory inventoryFilter = product.getInventory().stream()
+                .filter(inventory1 -> inventory1.getId().equalsIgnoreCase(inventory.getId())).findFirst()
+                .orElse(new Inventory());
+
+        return productToUpdateProductResponseToBranch(product, inventory);
+
     }
 }

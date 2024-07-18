@@ -87,12 +87,13 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.findBestSellingProductsByBranch(branch_id));
     }
 
-    @PutMapping(path = "/{id}/{branchId}")
+    @PutMapping(path = "/{id}/{branchId}/{inventoryId}")
     public ResponseEntity<ProductResponseToBranch> updateLocation(
             @Validated @RequestBody ProductUpdateLocationRequest request,
             @PathVariable String id,
-            @PathVariable String branchId) {
-        return ResponseEntity.ok(this.productService.productUpdateLocation(id, branchId, request));
+            @PathVariable String branchId,
+            @PathVariable String inventoryId) {
+        return ResponseEntity.ok(this.productService.productUpdateLocation(id, branchId, inventoryId, request));
     }
 
 }

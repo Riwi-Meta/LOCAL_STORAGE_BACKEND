@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.ProductUpdateLocationRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.response.*;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
@@ -15,10 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.ProductRequest;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.BestSellingResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.ProductResponseToBranch;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.RecentSaleResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IProductService;
@@ -121,17 +118,22 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductResponseToBranch productUpdateLocation(String id, String branchId, ProductUpdateLocationRequest request) {
+    public ProductResponseToBranch productUpdateLocation(
+            String id, String branchId, String inventoryId, ProductUpdateLocationRequest request) {
+
+
+        Inventory inventory = inventoryRepository.findById(inventoryId)
+                .orElseThrow();
+
+       Branch branch = branchRepository.findById(branchId).orElseThrow();
+
+        inventory.setBranch(branch);
+
+        this.inventoryRepository.save(inventory);
 
         Product product = find(id);
 
-
-
-
-        productMapper.productToUpdateLocation(request, product);
-        Product updatedProduct = this.productRepository.save(product);
-
-        return productMapper.productToProductResponseToBranch(updatedProduct);
+        return productMapper.mapProduct(product, inventory);
     }
 
 }

@@ -28,6 +28,6 @@ public interface IProductService extends
 
             ProductResponseToBranch getAllAndBranchByStoreId(String id, String storeId);
 
-            ProductResponseToBranch productUpdateLocation(String id, String storeId, ProductUpdateLocationRequest request);
+            ProductResponseToBranch productUpdateLocation(String id, String storeId, String inventoryId, ProductUpdateLocationRequest request);
 
 }

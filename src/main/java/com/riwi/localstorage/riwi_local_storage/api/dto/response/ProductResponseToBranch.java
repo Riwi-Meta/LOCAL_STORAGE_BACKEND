@@ -21,6 +21,8 @@ public class ProductResponseToBranch {
 
     private Double quantity;
 
+    private String inventoryId;
+
     private BranchResponse branch;
     
 }
