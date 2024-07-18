@@ -33,6 +33,7 @@ public class DiscountService implements IDiscountService {
   public DiscountResponse create(DiscountRequest request) {
     Discount discount = discountMapper.discountRequestToDiscount(request);
     discount.setIsActive(true);
+    validateDiscountRequest(request.getCode());
     return discountMapper.discountToDiscountResponse(discountRepository.save(discount));
   }
 

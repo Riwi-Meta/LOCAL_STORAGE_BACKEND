@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.errors.ErrorsResponse;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.DiscountRequest;
-import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.DiscountRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.EntityEnabledRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.DiscountResponse;
-import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IDiscountService;
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountSortCriteria;
 
