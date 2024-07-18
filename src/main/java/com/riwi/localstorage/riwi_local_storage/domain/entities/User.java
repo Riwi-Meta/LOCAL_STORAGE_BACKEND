@@ -51,7 +51,7 @@ public class User implements UserDetails{
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", referencedColumnName = "id", nullable = false)
     private Role role;
 

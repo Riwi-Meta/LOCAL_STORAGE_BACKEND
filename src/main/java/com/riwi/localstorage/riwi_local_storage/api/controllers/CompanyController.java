@@ -44,6 +44,13 @@ public class CompanyController {
     return ResponseEntity.ok(response);
   }
 
+  // TESTE
+
+  @GetMapping("/teste")
+  public String EJEMPLO_OJO() {
+    return "Esto es un ejemplo";
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(String id) {
     companyService.delete(id);
