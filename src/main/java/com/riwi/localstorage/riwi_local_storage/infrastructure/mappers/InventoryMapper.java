@@ -38,9 +38,6 @@ public interface InventoryMapper {
     })
     Inventory toEntityUpdate (InventoryRequestUpdate request);
 
-    //List<Inventory> toEntityList(List<InventoryRequestUpdate> request);
-
-
     List<Inventory> toEntityList(List<InventoryRequest> requests);
 
     List<InventoryResponse> toResponseList(List<Inventory> entity);
