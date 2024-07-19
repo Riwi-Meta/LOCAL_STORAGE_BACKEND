@@ -15,7 +15,10 @@ import org.mapstruct.Mappings;
 public interface InventoryCreateMapper {
     @Mappings({
             @Mapping(target = "branch.id", source = "branchId"),
-            @Mapping(target = "product.id", source = "productId")
+            @Mapping(target = "product.id", source = "productId"),
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "saleDetails", ignore = true),
+            @Mapping(target = "supplierOrders", ignore = true)
     })
 
     Inventory toEntity(InventoryRequest request);
