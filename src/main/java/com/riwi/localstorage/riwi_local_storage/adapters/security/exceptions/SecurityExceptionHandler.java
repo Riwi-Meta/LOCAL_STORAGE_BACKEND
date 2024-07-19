@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.riwi.localstorage.riwi_local_storage.adapters.security.exceptions.errors.EmailExistentException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.ForbiddenException;
 
 @ControllerAdvice
@@ -15,6 +16,11 @@ public class SecurityExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentials(BadCredentialsException ex) {
         return new ResponseEntity<>("Invalid credentials.", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(EmailExistentException.class)
+    public ResponseEntity<String> handleBadCredentials(EmailExistentException ex) {
+        return new ResponseEntity<>("This email is already used.", HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(AccessDeniedException.class)

@@ -20,6 +20,14 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
+
+    private static final String[] WHITE_LIST = {
+      "/auth/**",
+      "/v3/api-docs/**",
+      "/swagger-ui/**",
+      "/v2/api-docs/**",
+      "/swagger-resources/**"
+    };
   
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
@@ -30,7 +38,7 @@ public class SecurityConfig {
                 .disable())
             .authorizeHttpRequests(authRequest ->
               authRequest
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(WHITE_LIST).permitAll()
                 .anyRequest().authenticated()
                 )
             .sessionManagement(sessionManager->
