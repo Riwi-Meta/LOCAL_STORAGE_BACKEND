@@ -19,15 +19,11 @@ import org.springframework.stereotype.Service;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.InventoryRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.InventoryRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
-import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
-import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
-import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.InventoryRepository;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.InventoryExpirationDatePassed;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -45,9 +41,6 @@ public class InventoryService implements IInventoryService {
 
 	@Autowired
 	private final BranchRepository branchRepository;
-
-	@Autowired
-	private final InventoryUpdateMapper updateMapper;
 
 	@Override
 	public InventoryResponse create(InventoryRequest request) {
@@ -74,8 +67,18 @@ public class InventoryService implements IInventoryService {
     }
     @Override
     public InventoryResponse update(String id, InventoryRequestUpdate request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+		Inventory inventory = this.find(id);
+
+		Inventory toUpdate= this.inventoryMapper.toEntityUpdate(request);
+		
+		toUpdate.setId(inventory.getId());
+		toUpdate.setLastUpdateDate(new Date());
+
+		if (toUpdate.getQuantity() < 0 || toUpdate.getQuantity() <= inventory.getQuantity()) {
+			return null;
+		}
+
+		return this.inventoryMapper.toResponse(this.inventoryRepository.save(toUpdate));
     }
 
 	
