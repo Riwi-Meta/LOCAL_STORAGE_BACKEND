@@ -3,6 +3,14 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.services;
 import java.util.Date;
 import java.util.Optional;
 
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Branch;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
+import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.InventoryMapper;
+
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +24,6 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.InventoryRepository;
-import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryCreateMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.InventoryExpirationDatePassed;
 
@@ -30,15 +33,12 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class InventoryService implements IInventoryService {
-	
-	@Autowired
-	private final InventoryMapper inventoryMapper;
+    
+    @Autowired
+    private final InventoryMapper inventoryMapper;
 
-	@Autowired
-	private final InventoryCreateMapper createMapper;
-	
-	@Autowired
-	private final InventoryRepository inventoryRepository;
+    @Autowired
+    private final InventoryRepository inventoryRepository;
 
 	@Autowired
 	private final ProductRepository productRepository;
@@ -64,30 +64,19 @@ public class InventoryService implements IInventoryService {
 		Branch branch = branchRepository.findById(request.getBranchId())
 				.orElseThrow(() -> new EntityNotFoundException("Branch not found with id: " + request.getBranchId()));
 
-		Inventory inventory = createMapper.toEntity(request);
-		inventory.setProduct(product);
-		inventory.setBranch(branch);
+        Inventory inventory = inventoryMapper.toEntity(request);
+        inventory.setProduct(product);
+        inventory.setBranch(branch);
 
 		Inventory savedInventory = inventoryRepository.save(inventory);
 
-		return createMapper.toResponse(savedInventory);
-	}
-	@Override
-	public InventoryResponse update(String id, InventoryRequestUpdate request) {
-		
-		Inventory inventory = this.find(id);
-
-		Inventory toUpdate= this.updateMapper.toEntity(request);
-		
-		toUpdate.setId(inventory.getId());
-		toUpdate.setLastUpdateDate(new Date());
-
-		if (toUpdate.getQuantity() < 0 || toUpdate.getQuantity() <= inventory.getQuantity()) {
-			return null;
-		}
-
-		return this.updateMapper.toResponse(this.inventoryRepository.save(toUpdate));
-	}
+        return inventoryMapper.toResponse(savedInventory);
+    }
+    @Override
+    public InventoryResponse update(String id, InventoryRequestUpdate request) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
 
 	
 	@Override
