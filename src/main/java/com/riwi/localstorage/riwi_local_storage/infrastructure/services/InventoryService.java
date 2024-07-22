@@ -66,21 +66,29 @@ public class InventoryService implements IInventoryService {
         return inventoryMapper.toResponse(savedInventory);
     }
 
-    @Override
-    public InventoryResponse update(String id, InventoryRequestUpdate request) {
+	@Override
+	public InventoryResponse update(String id, InventoryRequestUpdate request) {
+		if (request == null) {
+			throw new IllegalArgumentException("Request cannot be null");
+		}
+
 		Inventory inventory = this.find(id);
+		if (inventory == null) {
+			throw new EntityNotFoundException("Inventory not found for id: " + id);
+		}
 
 		Inventory toUpdate = this.inventoryMapper.toEntityUpdate(request);
-		
+
 		toUpdate.setId(inventory.getId());
 		toUpdate.setLastUpdateDate(new Date());
 
-		if (toUpdate.getQuantity() < 0 || toUpdate.getQuantity() <= inventory.getQuantity()) {
-			return null;
+		if (toUpdate.getQuantity() < 0) {
+			throw new IllegalArgumentException("Quantity cannot be negative");
 		}
 
-		return this.inventoryMapper.toResponse(this.inventoryRepository.save(toUpdate));
-    }
+		Inventory savedInventory = this.inventoryRepository.save(toUpdate);
+		return this.inventoryMapper.toResponse(savedInventory);
+	}
 
 	
 	@Override
