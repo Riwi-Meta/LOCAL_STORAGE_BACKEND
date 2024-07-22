@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InventoryRequest {
 
-
-    
-
-    @NotBlank(message = "the quantity of the product is required") 
+    @NotNull(message = "the quantity of the product is required") 
     private Double quantity;
 
-    @NotBlank(message = "the last update date of the product is required") 
+    @NotNull(message = "the last update date of the product is required") 
     private Date lastUpdateDate;
 
-    @NotBlank(message = "the expiration date of the product is required") 
+    @NotNull(message = "the expiration date of the product is required") 
     private Date expirationDate;
 
     @NotBlank(message = "The ID of the branch is required")

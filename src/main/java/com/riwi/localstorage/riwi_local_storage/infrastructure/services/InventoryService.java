@@ -36,53 +36,65 @@ public class InventoryService implements IInventoryService {
     @Autowired
     private final InventoryRepository inventoryRepository;
 
-    @Autowired
-    private final ProductRepository productRepository;
-    @Autowired
-    private final BranchRepository branchRepository;
+	@Autowired
+	private final ProductRepository productRepository;
 
-    @Override
-    public InventoryResponse create(InventoryRequest request) {
-        Date today = new Date();
+	@Autowired
+	private final BranchRepository branchRepository;
 
-        if (request.getExpirationDate().before(today)) {
-            throw new InventoryExpirationDatePassed("The expiration date of the item in the inventory has passed");
-        }
+	@Override
+	public InventoryResponse create(InventoryRequest request) {
+		Date today = new Date();
+
+		if (request.getExpirationDate().before(today)) {
+			throw new InventoryExpirationDatePassed("The expiration date of the item in the inventory has passed");
+		}
 
 
-        Product product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + request.getProductId()));
+		Product product = productRepository.findById(request.getProductId())
+				.orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + request.getProductId()));
 
-        Branch branch = branchRepository.findById(request.getBranchId())
-                .orElseThrow(() -> new EntityNotFoundException("Branch not found with id: " + request.getBranchId()));
+		Branch branch = branchRepository.findById(request.getBranchId())
+				.orElseThrow(() -> new EntityNotFoundException("Branch not found with id: " + request.getBranchId()));
 
         Inventory inventory = inventoryMapper.toEntity(request);
         inventory.setProduct(product);
         inventory.setBranch(branch);
 
-        Inventory savedInventory = inventoryRepository.save(inventory);
+		Inventory savedInventory = inventoryRepository.save(inventory);
 
         return inventoryMapper.toResponse(savedInventory);
     }
+
     @Override
     public InventoryResponse update(String id, InventoryRequestUpdate request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+		Inventory inventory = this.find(id);
+
+		Inventory toUpdate = this.inventoryMapper.toEntityUpdate(request);
+		
+		toUpdate.setId(inventory.getId());
+		toUpdate.setLastUpdateDate(new Date());
+
+		if (toUpdate.getQuantity() < 0 || toUpdate.getQuantity() <= inventory.getQuantity()) {
+			return null;
+		}
+
+		return this.inventoryMapper.toResponse(this.inventoryRepository.save(toUpdate));
     }
 
-    
-    @Override
-    public Page<InventoryResponse> getAll(Pageable pageable) {
-        return this.inventoryRepository.findAll(pageable).map(this.inventoryMapper::toResponse);
-    }
+	
+	@Override
+	public Page<InventoryResponse> getAll(Pageable pageable) {
+		return this.inventoryRepository.findAll(pageable).map(this.inventoryMapper::toResponse);
+	}
 
-    @Override
-    public Optional<InventoryResponse> getById(String id) {
-        return Optional.ofNullable(this.inventoryMapper.toResponse(this.find(id)));
-    }
+	@Override
+	public Optional<InventoryResponse> getById(String id) {
+		return Optional.ofNullable(this.inventoryMapper.toResponse(this.find(id)));
+	}
 
-    private Inventory find(String id){
-        return this.inventoryRepository.findById(id).orElseThrow(()->new IdNotFoundException("Inventory", id));
-    }
+	private Inventory find(String id){
+		return this.inventoryRepository.findById(id).orElseThrow(()->new IdNotFoundException("Inventory", id));
+	}
 
 }
