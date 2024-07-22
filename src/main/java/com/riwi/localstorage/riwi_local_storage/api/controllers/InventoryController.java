@@ -89,7 +89,7 @@ public class InventoryController {
      * CREATE INVENTARY
      * -------------------
      */
-    @Operation(summary = "This method allows create a new inventary.", description = "create a new inventary by entering the required data")
+    @Operation(summary = "This method allows create a new inventary.", description = "Create a new inventary by entering the required data")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
@@ -107,6 +107,14 @@ public class InventoryController {
      * UPDATE INVENTORY
      * ---------------------
      */
+    @Operation(summary = "This method allows update a inventary.", description = "Updates a previously created inventary and the ID and the new modified parameters must be sent through the path.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<InventoryResponse> update(
