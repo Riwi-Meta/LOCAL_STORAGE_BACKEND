@@ -8,6 +8,8 @@ import com.riwi.localstorage.riwi_local_storage.domain.entities.Product;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.BranchRepository;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.ProductRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
+import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.InventoryMapper;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +21,6 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.Inventory
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.InventoryResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Inventory;
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.InventoryRepository;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryCreateMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.inventoryMappers.InventoryMapper;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.IdNotFoundException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.InventoryExpirationDatePassed;
 
@@ -33,9 +33,6 @@ public class InventoryService implements IInventoryService {
     @Autowired
     private final InventoryMapper inventoryMapper;
 
-    @Autowired
-    private final InventoryCreateMapper createMapper;
-       
     @Autowired
     private final InventoryRepository inventoryRepository;
 
@@ -59,13 +56,13 @@ public class InventoryService implements IInventoryService {
         Branch branch = branchRepository.findById(request.getBranchId())
                 .orElseThrow(() -> new EntityNotFoundException("Branch not found with id: " + request.getBranchId()));
 
-        Inventory inventory = createMapper.toEntity(request);
+        Inventory inventory = inventoryMapper.toEntity(request);
         inventory.setProduct(product);
         inventory.setBranch(branch);
 
         Inventory savedInventory = inventoryRepository.save(inventory);
 
-        return createMapper.toResponse(savedInventory);
+        return inventoryMapper.toResponse(savedInventory);
     }
     @Override
     public InventoryResponse update(String id, InventoryRequestUpdate request) {

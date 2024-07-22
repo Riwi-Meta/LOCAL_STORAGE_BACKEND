@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @AllArgsConstructor
@@ -49,6 +51,8 @@ public class CompanyService implements ICompanyService {
     company.setIsEnable(false);
     companyRepository.save(company);
   }
+
+  @Transactional()
 
   @Override
   public Page<CompanyResponseRelations> getAll(Pageable pageable) {
