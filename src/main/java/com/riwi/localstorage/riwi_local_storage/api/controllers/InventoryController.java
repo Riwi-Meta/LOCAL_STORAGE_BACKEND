@@ -21,6 +21,11 @@ import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.Inventory
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.InventoryRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IInventoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -34,6 +39,28 @@ public class InventoryController {
      * GET ALL INVENTARIES
      * ---------------------
      */
+    @Operation(
+    summary = "This method allows get all the inventaries in paginated form.", 
+    description = "Retrieve a paginated list of all inventaries", 
+    parameters = {
+        @Parameter(name = "page", 
+                   description = "Page number", 
+                   schema = @Schema(
+                    type = "integer", 
+                    defaultValue = "1")),
+        @Parameter(name = "size", 
+                   description = "Page size", 
+                   schema = @Schema(
+                    type = "integer", 
+                    defaultValue = "10"))
+    }, 
+    responses = {
+        @ApiResponse(responseCode = "200", description = "SUCCESSFUL"),
+        @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+        @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+        @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+        @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
 
      @GetMapping
      public ResponseEntity<Page<InventoryResponse>> getAll(@PageableDefault(page = 1, size = 10
@@ -45,7 +72,14 @@ public class InventoryController {
     * GET BY ID
     * -------------------
     */
-
+    @Operation(summary = "This method allows get an inventary by an specific ID.", description = "Retrieves a inventary by its unique ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
      @GetMapping(path = "/{id}")
      public ResponseEntity<Optional<InventoryResponse>> getById(@PathVariable String id){
         return ResponseEntity.ok(service.getById(id));
@@ -55,6 +89,14 @@ public class InventoryController {
      * CREATE INVENTARY
      * -------------------
      */
+    @Operation(summary = "This method allows create a new inventary.", description = "Create a new inventary by entering the required data")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
     @PostMapping
     public ResponseEntity<InventoryResponse> create(
             @Validated @RequestBody InventoryRequest request) {
@@ -65,6 +107,14 @@ public class InventoryController {
      * UPDATE INVENTORY
      * ---------------------
      */
+    @Operation(summary = "This method allows update a inventary.", description = "Updates a previously created inventary and the ID and the new modified parameters must be sent through the path.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "401", description = "NOT AUTHORIZED"),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<InventoryResponse> update(
