@@ -65,11 +65,12 @@ public class InventoryService implements IInventoryService {
 
         return inventoryMapper.toResponse(savedInventory);
     }
+
     @Override
     public InventoryResponse update(String id, InventoryRequestUpdate request) {
 		Inventory inventory = this.find(id);
 
-		Inventory toUpdate= this.inventoryMapper.toEntityUpdate(request);
+		Inventory toUpdate = this.inventoryMapper.toEntityUpdate(request);
 		
 		toUpdate.setId(inventory.getId());
 		toUpdate.setLastUpdateDate(new Date());
