@@ -16,7 +16,6 @@ import com.riwi.localstorage.riwi_local_storage.domain.repositories.StoreReposit
 import com.riwi.localstorage.riwi_local_storage.domain.repositories.UserRepository;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.IStoreService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreMapper;
-import com.riwi.localstorage.riwi_local_storage.infrastructure.mappers.StoreUpdateMapper;
 import com.riwi.localstorage.riwi_local_storage.util.enums.StatusType;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreAlreadyInactiveException;
 import com.riwi.localstorage.riwi_local_storage.util.exeptions.StoreNameAlreadyExistsException;
@@ -40,8 +39,7 @@ public class StoreService implements IStoreService {
     @Autowired
     private final StoreMapper storeMapper;
 
-    @Autowired
-    private final StoreUpdateMapper updateMapper;
+    
 
     @Override
     public StoreResponse create(StoreRequest request) {
@@ -82,7 +80,7 @@ public class StoreService implements IStoreService {
 
     @Override
     public Optional<StoreResponse> getById(Integer id) {
-        return Optional.ofNullable(this.updateMapper.toResponse(this.find(id)));
+        return Optional.ofNullable(this.storeMapper.toResponse(this.find(id)));
     }
 
     @Override
@@ -96,13 +94,13 @@ public class StoreService implements IStoreService {
         }else{
             Store store = this.find(id);
 
-            Store storeUpdate = this.updateMapper.toEntity(request);
+            Store storeUpdate = this.storeMapper.toEntityUpdate(request);
 
             storeUpdate.setId(id);
             storeUpdate.setStatus(store.getStatus());
             storeUpdate.setUser(store.getUser());
 
-            return this.updateMapper.toResponse(this.storeRepository.save(storeUpdate));
+            return this.storeMapper.toResponse(this.storeRepository.save(storeUpdate));
         }
     }
 

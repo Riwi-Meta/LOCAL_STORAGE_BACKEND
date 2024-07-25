@@ -9,6 +9,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.Mappings;
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.StoreRequest;
+import com.riwi.localstorage.riwi_local_storage.api.dto.request.update.StoreRequestUpdate;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.StoreResponse;
 import com.riwi.localstorage.riwi_local_storage.domain.entities.Store;
 
@@ -18,10 +19,21 @@ public interface StoreMapper {
     @Mappings({
         @Mapping(target = "id", ignore = true),
         @Mapping(target = "branches", ignore = true),
-        @Mapping(target = "user.id", source = "user_id")
+        @Mapping(target = "user.id", source = "user_id"),
+        @Mapping(target = "custom", ignore = true),
     })
     Store toEntity(StoreRequest request);
 
+
+    @Mappings({
+    @Mapping(target = "id", ignore = true),
+    @Mapping(target = "branches", ignore = true),
+    @Mapping(target = "status", ignore = true),
+    @Mapping(target = "custom", ignore = true),
+    @Mapping(target = "user", ignore = true)
+    })
+    Store toEntityUpdate(StoreRequestUpdate request);
+    
     @InheritInverseConfiguration
     StoreResponse toResponse(Store entity);
 
