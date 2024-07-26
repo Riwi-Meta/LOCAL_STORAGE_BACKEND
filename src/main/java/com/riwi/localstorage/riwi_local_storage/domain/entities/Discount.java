@@ -1,6 +1,10 @@
 package com.riwi.localstorage.riwi_local_storage.domain.entities;
 
+import java.util.Date;
+import java.util.List;
+
 import com.riwi.localstorage.riwi_local_storage.util.enums.DiscountType;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
