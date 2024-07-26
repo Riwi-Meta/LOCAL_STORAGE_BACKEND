@@ -2,6 +2,7 @@ package com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_service
 
 import com.riwi.localstorage.riwi_local_storage.api.dto.request.create.MembershipRequest;
 import com.riwi.localstorage.riwi_local_storage.api.dto.response.MembershipResponse;
+import com.riwi.localstorage.riwi_local_storage.domain.entities.Membership;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.CreateService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.ReadAllService;
 import com.riwi.localstorage.riwi_local_storage.infrastructure.abstract_services.generic.UpdateService;
@@ -14,4 +15,6 @@ public interface IMembershipService extends
   public void updateMembershipStatus(String id, boolean enabled);
 
   public MembershipResponse getById(String id);
+
+  public Membership findMembership(String id);
 }
