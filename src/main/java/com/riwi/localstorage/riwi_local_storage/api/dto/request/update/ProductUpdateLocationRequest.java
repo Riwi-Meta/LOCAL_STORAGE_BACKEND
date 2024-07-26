@@ -1,6 +1,6 @@
 package com.riwi.localstorage.riwi_local_storage.api.dto.request.update;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,12 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MembershipEnabledRequest {
+public class ProductUpdateLocationRequest {
 
-  @NotNull(message = "The enabled field must not be null")
-  private boolean isEnabled;
+    @Column(nullable = false)
+    private String id;
+
+    @Column(nullable = false)
+    private String branchId;
+
 }
